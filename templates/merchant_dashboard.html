@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Transaction Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .provider-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .provider-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .provider-connected {
+            border-color: #28a745;
+            background-color: #f8fff9;
+        }
+        .provider-disconnected {
+            border-color: #dc3545;
+            background-color: #fff8f8;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+        .transaction-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status-success { color: #28a745; }
+        .status-failed { color: #dc3545; }
+        .status-pending { color: #ffc107; }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">
+            <i class="fas fa-chart-line"></i> Merchant Transaction Dashboard
+        </span>
+        <div class="navbar-nav flex-row">
+            <a class="nav-link me-3" href="/merchant/connect">
+                <i class="fas fa-plug"></i> Connect Providers
+            </a>
+            <a class="nav-link" href="/logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid mt-4">
+    <!-- Provider Status Cards -->
+    <div class="row">
+        <div class="col-12">
+            <h3><i class="fas fa-link"></i> Connected Payment Providers</h3>
+        </div>
+    </div>
+    
+    <div class="row" id="provider-status">
+        <!-- Provider cards will be loaded here -->
+        <div class="col-md-3">
+            <div class="provider-card provider-disconnected">
+                <div class="text-center">
+                    <img src="/static/phonepe-logo.png" alt="PhonePe" height="40" class="mb-2">
+                    <h5>PhonePe Business</h5>
+                    <p class="text-muted">Not Connected</p>
+                    <a href="/setup/phonepe" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plug"></i> Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="provider-card provider-disconnected">
+                <div class="text-center">
+                    <img src="/static/razorpay-logo.png" alt="Razorpay" height="40" class="mb-2">
+                    <h5>Razorpay</h5>
+                    <p class="text-muted">Not Connected</p>
+                    <a href="/setup/razorpay" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plug"></i> Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="provider-card provider-disconnected">
+                <div class="text-center">
+                    <img src="/static/payu-logo.png" alt="PayU" height="40" class="mb-2">
+                    <h5>PayU</h5>
+                    <p class="text-muted">Not Connected</p>
+                    <a href="/setup/payu" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plug"></i> Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="provider-card provider-disconnected">
+                <div class="text-center">
+                    <img src="/static/cashfree-logo.png" alt="Cashfree" height="40" class="mb-2">
+                    <h5>Cashfree</h5>
+                    <p class="text-muted">Not Connected</p>
+                    <a href="/setup/cashfree" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plug"></i> Connect
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h4 id="total-transactions">0</h4>
+                <p><i class="fas fa-receipt"></i> Total Transactions</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h4 id="total-amount">₹0</h4>
+                <p><i class="fas fa-rupee-sign"></i> Total Amount</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h4 id="success-rate">0%</h4>
+                <p><i class="fas fa-check-circle"></i> Success Rate</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stats-card">
+                <h4 id="avg-transaction">₹0</h4>
+                <p><i class="fas fa-calculator"></i> Avg Transaction</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Table -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="transaction-table p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4><i class="fas fa-list"></i> Recent Transactions</h4>
+                    <div>
+                        <select id="days-filter" class="form-select" style="width: auto; display: inline-block;">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                        <button class="btn btn-primary ms-2" onclick="refreshData()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Transaction ID</th>
+                                <th>Customer</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Provider</th>
+                                <th>Method</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-tbody">
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-2">Loading transactions...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Consent Modal -->
+<div class="modal fade" id="consentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-shield-alt"></i> Data Access Consent
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Your Data, Your Control</strong>
+                </div>
+                
+                <h6>What we will access:</h6>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success"></i> Your transaction history
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success"></i> Payment status information
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success"></i> Settlement data
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-check text-success"></i> Basic merchant profile
+                    </li>
+                </ul>
+                
+                <h6>What we will NOT access:</h6>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item">
+                        <i class="fas fa-times text-danger"></i> Customer personal details
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-times text-danger"></i> Your login credentials
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-times text-danger"></i> Bank account information
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-times text-danger"></i> Any unauthorized data
+                    </li>
+                </ul>
+                
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    You can disconnect any provider at any time from your dashboard.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary" onclick="proceedWithConnection()">
+                    I Understand & Agree
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Dashboard JavaScript
+let currentProviderToConnect = null;
+
+// Load dashboard data on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadTransactionData();
+    checkProviderStatus();
+});
+
+function loadTransactionData() {
+    const days = document.getElementById('days-filter').value;
+    
+    fetch(`/api/transactions?days=${days}`)
+        .then(response => response.json())
+        .then(data => {
+            updateStatistics(data.summary);
+            updateTransactionTable(data.transactions);
+            updateProviderStatus(data.provider_stats);
+        })
+        .catch(error => {
+            console.error('Error loading transaction data:', error);
+            showError('Failed to load transaction data');
+        });
+}
+
+function updateStatistics(summary) {
+    document.getElementById('total-transactions').textContent = summary.total_transactions || 0;
+    document.getElementById('total-amount').textContent = '₹' + (summary.total_amount || 0).toLocaleString();
+    document.getElementById('success-rate').textContent = (summary.success_rate || 0).toFixed(1) + '%';
+    document.getElementById('avg-transaction').textContent = '₹' + (summary.average_transaction || 0).toLocaleString();
+}
+
+function updateTransactionTable(transactions) {
+    const tbody = document.getElementById('transactions-tbody');
+    
+    if (!transactions || transactions.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <p>No transactions found. Connect a payment provider to see your data.</p>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    tbody.innerHTML = transactions.map(txn => `
+        <tr>
+            <td>${new Date(txn.date).toLocaleDateString()}</td>
+            <td><code>${txn.id}</code></td>
+            <td>${txn.customer_name}</td>
+            <td>₹${txn.amount.toLocaleString()}</td>
+            <td>
+                <span class="badge bg-${getStatusColor(txn.status)} status-${txn.status}">
+                    ${txn.status.toUpperCase()}
+                </span>
+            </td>
+            <td>
+                <img src="/static/${txn.provider}-logo.png" height="20" alt="${txn.provider}">
+                ${txn.provider}
+            </td>
+            <td>${txn.payment_method}</td>
+        </tr>
+    `).join('');
+}
+
+function getStatusColor(status) {
+    switch(status.toLowerCase()) {
+        case 'success': return 'success';
+        case 'failed': return 'danger';
+        case 'pending': return 'warning';
+        default: return 'secondary';
+    }
+}
+
+function updateProviderStatus(providerStats) {
+    // Update provider cards based on connection status
+    Object.keys(providerStats).forEach(provider => {
+        const stats = providerStats[provider];
+        updateProviderCard(provider, stats);
+    });
+}
+
+function updateProviderCard(provider, stats) {
+    // Find and update the provider card
+    // This would update the visual status of provider cards
+}
+
+function refreshData() {
+    const refreshBtn = event.target;
+    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+    refreshBtn.disabled = true;
+    
+    loadTransactionData();
+    
+    setTimeout(() => {
+        refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+        refreshBtn.disabled = false;
+    }, 2000);
+}
+
+function connectProvider(provider) {
+    currentProviderToConnect = provider;
+    const modal = new bootstrap.Modal(document.getElementById('consentModal'));
+    modal.show();
+}
+
+function proceedWithConnection() {
+    if (currentProviderToConnect) {
+        window.location.href = `/setup/${currentProviderToConnect}`;
+    }
+}
+
+function disconnectProvider(provider) {
+    if (confirm(`Are you sure you want to disconnect ${provider}? You will stop seeing transaction data from this provider.`)) {
+        fetch(`/api/disconnect/${provider}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccess(data.message);
+                    loadTransactionData();
+                } else {
+                    showError(data.error);
+                }
+            })
+            .catch(error => {
+                showError('Failed to disconnect provider');
+            });
+    }
+}
+
+function checkProviderStatus() {
+    // Check which providers are connected
+    // Update UI accordingly
+}
+
+function showSuccess(message) {
+    // Show success notification
+    alert('Success: ' + message);
+}
+
+function showError(message) {
+    // Show error notification
+    alert('Error: ' + message);
+}
+
+// Filter change handler
+document.getElementById('days-filter').addEventListener('change', loadTransactionData);
+</script>
+
+</body>
+</html>

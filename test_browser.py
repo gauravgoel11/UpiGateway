@@ -36,7 +36,19 @@ def test_selenium_basic():
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
-        print("✓ Chrome options configured")
+        
+        # Fix WebGL warnings and enable software rendering
+        chrome_options.add_argument("--disable-3d-apis")
+        chrome_options.add_argument("--disable-webgl")
+        chrome_options.add_argument("--disable-webgl2")
+        chrome_options.add_argument("--use-gl=swiftshader")
+        chrome_options.add_argument("--enable-unsafe-swiftshader")
+        chrome_options.add_argument("--disable-background-timer-throttling")
+        chrome_options.add_argument("--disable-backgrounding-occluded-windows")
+        chrome_options.add_argument("--disable-renderer-backgrounding")
+        chrome_options.add_argument("--disable-features=TranslateUI")
+        chrome_options.add_argument("--disable-ipc-flooding-protection")
+        print("✓ Chrome options configured with WebGL fixes")
         
         print("\nTesting Chrome browser startup...")
         service = Service(driver_path)

@@ -569,149 +569,77 @@
         }
       }
 
-      // Browser Automation Functions
-      let browserSessionId = null;
-      let statusCheckInterval = null;
-
+      // Start browser automation
       function startBrowserAutomation() {
         const phone = document.getElementById('phone').value;
-        const btn = document.getElementById('browserAutoBtn');
-        const originalText = btn.innerHTML;
-        
         if (!phone || phone.length !== 10) {
-          alert('Please enter a valid 10-digit phone number first');
+          alert('Please enter a valid 10-digit phone number.');
           return;
         }
-        
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>🤖 Starting Browser...';
+
+        const btn = document.getElementById('browserAutoBtn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Starting Automation...';
         btn.disabled = true;
-        
-        fetch('/api/phonepe/browser-login', {
+
+        fetch('/api/phonepe/start-automation', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            phone: phone,
-            headless: false  // Show browser window for OTP entry
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone: phone })
         })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            browserSessionId = data.session_id;
-            
-            // Show success message
-            alert('🤖 Browser automation started!\n\n' +
-                  '1. Chrome browser window opened\n' +
-                  '2. Phone number entered automatically\n' +
-                  '3. Please enter OTP in the browser window\n' +
-                  '4. We\'ll detect login completion automatically');
-            
-            // Start monitoring login status
-            startStatusMonitoring();
-            
-            // Update UI
-            btn.innerHTML = '<i class="fas fa-eye me-2"></i>🤖 Monitoring Login...';
-            btn.disabled = false;
-            btn.onclick = () => checkBrowserStatus();
-            
+            showStep('otp');
+            document.getElementById('phoneDisplay').textContent = '+91 ' + phone;
           } else {
-            alert('Browser automation failed:\n' + data.error);
-            btn.innerHTML = originalText;
-            btn.disabled = false;
+            alert('Error: ' + data.error);
           }
         })
-        .catch(error => {
-          console.error('Browser automation error:', error);
-          alert('Browser automation failed:\n' + error.message);
-          btn.innerHTML = originalText;
+        .finally(() => {
+          btn.innerHTML = '<i class="fas fa-robot me-2"></i>Auto-Login with Browser (Recommended)';
           btn.disabled = false;
         });
       }
 
-      function startStatusMonitoring() {
-        if (statusCheckInterval) {
-          clearInterval(statusCheckInterval);
+      // OTP form handling
+      document.getElementById('otpForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const otp = document.getElementById('otp').value;
+        const submitBtn = document.getElementById('verifyOtpBtn');
+        const originalText = submitBtn.innerHTML;
+        
+        if (!otp || otp.length !== 6) {
+          alert('Please enter a valid 6-digit OTP');
+          return;
         }
         
-        statusCheckInterval = setInterval(() => {
-          checkBrowserStatus(false); // Silent check
-        }, 3000); // Check every 3 seconds
-      }
-
-      function checkBrowserStatus(showAlert = true) {
-        if (!browserSessionId) return;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Verifying...';
+        submitBtn.disabled = true;
         
-        fetch(`/api/phonepe/browser-status/${browserSessionId}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              console.log('Browser status:', data);
-              
-              if (data.authenticated) {
-                // Login completed!
-                clearInterval(statusCheckInterval);
-                
-                if (showAlert) {
-                  alert('🎉 Login successful!\n\n' +
-                        'PhonePe authentication completed via browser automation.\n' +
-                        'You can now access your dashboard.');
-                }
-                
-                // Redirect to dashboard or next step
-                window.location.href = '/dashboard';
-                
-              } else if (showAlert) {
-                alert(`Browser Status:\n\n` +
-                      `URL: ${data.current_url}\n` +
-                      `Title: ${data.title}\n` +
-                      `Authenticated: ${data.authenticated ? 'Yes' : 'No'}\n\n` +
-                      `Please complete OTP entry in the browser window.`);
-              }
-            } else if (showAlert) {
-              alert('Error checking browser status: ' + data.error);
-            }
-          })
-          .catch(error => {
-            if (showAlert) {
-              console.error('Status check error:', error);
-            }
-          });
-      }
-
-      function closeBrowserSession() {
-        if (!browserSessionId) return;
-        
-        fetch(`/api/phonepe/browser-close/${browserSessionId}`, {
-          method: 'POST'
+        fetch('/api/phonepe/submit-otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ otp: otp })
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Browser session closed:', data);
-          browserSessionId = null;
-          
-          if (statusCheckInterval) {
-            clearInterval(statusCheckInterval);
-            statusCheckInterval = null;
+          if (data.success) {
+            window.location.href = data.redirect_url;
+          } else {
+            alert('Error: ' + data.error);
           }
-          
-          // Reset button
-          const btn = document.getElementById('browserAutoBtn');
-          btn.innerHTML = '<i class="fas fa-robot me-2"></i>🤖 Auto-Login with Browser (Recommended)';
-          btn.disabled = false;
-          btn.onclick = startBrowserAutomation;
         })
         .catch(error => {
-          console.error('Error closing browser session:', error);
+          console.error('Error:', error);
+          alert('Failed to verify OTP. Please try again.');
+        })
+        .finally(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
         });
-      }
-
-      // Close browser session when page unloads
-      window.addEventListener('beforeunload', () => {
-        if (browserSessionId) {
-          closeBrowserSession();
-        }
       });
 
       // Test PhonePe connection

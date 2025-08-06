@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect PhonePe Business Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .setup-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        .phonepe-logo {
+            width: 150px;
+            margin: 20px auto;
+            display: block;
+        }
+        .consent-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .consent-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #28a745;
+            background: white;
+        }
+        .consent-item.denied {
+            border-left-color: #dc3545;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            position: relative;
+        }
+        .step.active {
+            background: #007bff;
+            color: white;
+        }
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 20px;
+            height: 2px;
+            background: #e9ecef;
+            z-index: -1;
+        }
+        .step:last-child::after {
+            display: none;
+        }
+        .instruction-card {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="setup-card">
+        <div class="card-header text-center py-4">
+            <img src="/static/phonepe-logo.png" alt="PhonePe" class="phonepe-logo">
+            <h3>Connect Your PhonePe Business Account</h3>
+            <p class="text-muted">Securely connect your account to view transaction data</p>
+        </div>
+        
+        <div class="card-body p-4">
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step completed">
+                    <i class="fas fa-info"></i>
+                </div>
+                <div class="step active">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="step">
+                    <i class="fas fa-key"></i>
+                </div>
+                <div class="step">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+
+            <!-- Consent Section -->
+            <div class="consent-section">
+                <h5><i class="fas fa-shield-alt text-primary"></i> Data Access Consent</h5>
+                <p class="text-muted">By connecting your PhonePe Business account, you authorize us to access the following data:</p>
+                
+                <h6 class="text-success"><i class="fas fa-check-circle"></i> What we WILL access:</h6>
+                <div class="consent-item">
+                    <i class="fas fa-receipt text-primary"></i>
+                    <strong>Transaction History</strong> - View your past transactions and their details
+                </div>
+                <div class="consent-item">
+                    <i class="fas fa-chart-line text-primary"></i>
+                    <strong>Payment Status</strong> - Monitor success/failure rates and payment statuses
+                </div>
+                <div class="consent-item">
+                    <i class="fas fa-calendar text-primary"></i>
+                    <strong>Settlement Data</strong> - Access settlement information and dates
+                </div>
+                <div class="consent-item">
+                    <i class="fas fa-user-tie text-primary"></i>
+                    <strong>Basic Merchant Profile</strong> - Your business name and basic account information
+                </div>
+                
+                <h6 class="text-danger mt-4"><i class="fas fa-times-circle"></i> What we will NOT access:</h6>
+                <div class="consent-item denied">
+                    <i class="fas fa-user-secret text-danger"></i>
+                    <strong>Customer Personal Information</strong> - Names, addresses, phone numbers remain private
+                </div>
+                <div class="consent-item denied">
+                    <i class="fas fa-lock text-danger"></i>
+                    <strong>Login Credentials</strong> - We never store your username/password
+                </div>
+                <div class="consent-item denied">
+                    <i class="fas fa-university text-danger"></i>
+                    <strong>Bank Account Details</strong> - Account numbers and banking information
+                </div>
+                <div class="consent-item denied">
+                    <i class="fas fa-ban text-danger"></i>
+                    <strong>Unauthorized Data</strong> - Any data you don't explicitly authorize
+                </div>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instruction-card">
+                <h6><i class="fas fa-lightbulb text-warning"></i> How to get your PhonePe Business API credentials:</h6>
+                <ol>
+                    <li>Log into your <strong>PhonePe Business</strong> dashboard</li>
+                    <li>Go to <strong>Developer Settings</strong> or <strong>API Keys</strong> section</li>
+                    <li>Generate or copy your <strong>Merchant ID</strong>, <strong>API Key</strong>, and <strong>API Secret</strong></li>
+                    <li>Enter them in the form below</li>
+                </ol>
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Note:</strong> If you don't see API credentials in your dashboard, contact PhonePe Business support to enable API access for your account.
+                </div>
+            </div>
+
+            <!-- Credentials Form -->
+            <form id="phonepe-setup-form">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <label for="merchant_id" class="form-label">
+                                <i class="fas fa-store"></i> Merchant ID
+                            </label>
+                            <input type="text" class="form-control" id="merchant_id" name="merchant_id" 
+                                   placeholder="Enter your PhonePe Merchant ID" required>
+                            <div class="form-text">This is your unique merchant identifier from PhonePe</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="api_key" class="form-label">
+                                <i class="fas fa-key"></i> API Key
+                            </label>
+                            <input type="text" class="form-control" id="api_key" name="api_key" 
+                                   placeholder="Enter your API Key" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="api_secret" class="form-label">
+                                <i class="fas fa-lock"></i> API Secret
+                            </label>
+                            <input type="password" class="form-control" id="api_secret" name="api_secret" 
+                                   placeholder="Enter your API Secret" required>
+                            <button type="button" class="btn btn-sm btn-outline-secondary mt-1" onclick="togglePassword()">
+                                <i class="fas fa-eye" id="password-toggle-icon"></i> Show
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consent Checkbox -->
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="consent_checkbox" name="consent" value="true" required>
+                        <label class="form-check-label" for="consent_checkbox">
+                            <strong>I understand and consent to the data access described above.</strong>
+                            I acknowledge that:
+                            <ul class="mt-2">
+                                <li>I am the authorized owner/administrator of this PhonePe Business account</li>
+                                <li>I have read and understood what data will be accessed</li>
+                                <li>I can disconnect this integration at any time from my dashboard</li>
+                                <li>My data will be handled securely and in compliance with privacy laws</li>
+                            </ul>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Security Notice -->
+                <div class="alert alert-warning">
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Security Notice:</strong> Your API credentials are encrypted and stored securely. 
+                    We use industry-standard encryption to protect your sensitive information.
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg" id="connect-btn">
+                        <i class="fas fa-plug"></i> Connect PhonePe Account
+                    </button>
+                    <a href="/dashboard" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-check-circle"></i> Connection Successful!
+                </h5>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                <h5>PhonePe Account Connected Successfully!</h5>
+                <p>You can now view your PhonePe transaction data in the dashboard.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='/dashboard'">
+                    Go to Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function togglePassword() {
+    const passwordField = document.getElementById('api_secret');
+    const toggleIcon = document.getElementById('password-toggle-icon');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleIcon.className = 'fas fa-eye-slash';
+        toggleIcon.parentElement.innerHTML = '<i class="fas fa-eye-slash"></i> Hide';
+    } else {
+        passwordField.type = 'password';
+        toggleIcon.className = 'fas fa-eye';
+        toggleIcon.parentElement.innerHTML = '<i class="fas fa-eye"></i> Show';
+    }
+}
+
+document.getElementById('phonepe-setup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('connect-btn');
+    const originalText = submitBtn.innerHTML;
+    
+    // Validate form
+    if (!document.getElementById('consent_checkbox').checked) {
+        alert('Please provide consent to connect your account.');
+        return;
+    }
+    
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+    submitBtn.disabled = true;
+    
+    // Get form data
+    const formData = new FormData(this);
+    
+    // Submit to backend
+    fetch('/setup/phonepe', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Show success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        } else {
+            alert('Error: ' + data.error);
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Network error occurred. Please try again.');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+});
+
+// Add real-time validation
+document.getElementById('merchant_id').addEventListener('input', function() {
+    validateMerchantId(this.value);
+});
+
+function validateMerchantId(merchantId) {
+    const field = document.getElementById('merchant_id');
+    
+    if (merchantId.length < 5) {
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+    } else {
+        field.classList.add('is-valid');
+        field.classList.remove('is-invalid');
+    }
+}
+
+// Prevent form submission if credentials look invalid
+function validateCredentials() {
+    const merchantId = document.getElementById('merchant_id').value;
+    const apiKey = document.getElementById('api_key').value;
+    const apiSecret = document.getElementById('api_secret').value;
+    
+    if (merchantId.length < 5 || apiKey.length < 10 || apiSecret.length < 10) {
+        alert('Please check your credentials. They appear to be too short to be valid.');
+        return false;
+    }
+    
+    return true;
+}
+</script>
+
+</body>
+</html>

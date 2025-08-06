@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kamlai Multi Service - Merchant Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 20px;
+            margin: 4px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        .main-content {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid;
+            transition: transform 0.3s;
+        }
+        .stats-card:hover {
+            transform: translateY(-2px);
+        }
+        .stats-card.success { border-left-color: #28a745; }
+        .stats-card.info { border-left-color: #17a2b8; }
+        .stats-card.warning { border-left-color: #ffc107; }
+        .stats-card.primary { border-left-color: #007bff; }
+        
+        .transaction-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .status-SUCCESS { background: #d4edda; color: #155724; }
+        .status-PENDING { background: #fff3cd; color: #856404; }
+        .status-FAILED { background: #f8d7da; color: #721c24; }
+        
+        .api-key-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar p-0">
+                <div class="p-3">
+                    <h4 class="text-white mb-4">
+                        <i class="fas fa-wallet me-2"></i>
+                        Kamlai Multi Service
+                    </h4>
+                    
+                    {% if current_user.is_authenticated %}
+                    <div class="text-white-50 mb-3">
+                        <small>Welcome, {{ current_user.business_name }}</small>
+                    </div>
+                    
+                    <nav class="nav flex-column">
+                        <a class="nav-link" href="{{ url_for('dashboard') }}">
+                            <i class="fas fa-chart-line me-2"></i>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="{{ url_for('transactions') }}">
+                            <i class="fas fa-list me-2"></i>
+                            Transactions
+                        </a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#apiModal">
+                            <i class="fas fa-key me-2"></i>
+                            API Keys
+                        </a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#integrationModal">
+                            <i class="fas fa-code me-2"></i>
+                            Integration
+                        </a>
+                        <hr class="my-3" style="border-color: rgba(255,255,255,0.2);">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt me-2"></i>
+                            Logout
+                        </a>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10 main-content p-0">
+                <div class="p-4">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Keys Modal -->
+    {% if current_user.is_authenticated %}
+    <div class="modal fade" id="apiModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">API Keys</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Merchant ID</label>
+                        <div class="api-key-display">{{ current_user.merchant_id }}</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">API Key</label>
+                        <div class="api-key-display">{{ current_user.api_key }}</div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">API Secret</label>
+                        <div class="api-key-display">{{ current_user.api_secret }}</div>
+                        <small class="text-danger">⚠️ Keep this secret secure! Never share it publicly.</small>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Use these credentials to integrate with our API. See the Integration tab for code examples.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Integration Modal -->
+    <div class="modal fade" id="integrationModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Integration Guide</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs" id="integrationTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="python-tab" data-bs-toggle="tab" data-bs-target="#python" type="button">Python</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="nodejs-tab" data-bs-toggle="tab" data-bs-target="#nodejs" type="button">Node.js</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="curl-tab" data-bs-toggle="tab" data-bs-target="#curl" type="button">cURL</button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content mt-3" id="integrationTabContent">
+                        <div class="tab-pane fade show active" id="python" role="tabpanel">
+                            <h6>Python Example - Create Payment</h6>
+                            <pre class="bg-dark text-light p-3 rounded"><code>import requests
+import json
+import hmac
+import hashlib
+
+# Your API credentials
+API_KEY = "{{ current_user.api_key }}"
+API_SECRET = "{{ current_user.api_secret }}"
+BASE_URL = "{{ request.host_url }}api"
+
+def create_payment(amount, customer_name, customer_email, redirect_url):
+    data = {
+        'amount': amount,
+        'customer_name': customer_name,
+        'customer_email': customer_email,
+        'redirect_url': redirect_url
+    }
+    
+    # Generate signature
+    payload = json.dumps(data, sort_keys=True)
+    signature = hmac.new(
+        API_SECRET.encode('utf-8'),
+        payload.encode('utf-8'),
+        hashlib.sha256
+    ).hexdigest()
+    
+    headers = {
+        'Content-Type': 'application/json',
+        'X-API-Key': API_KEY,
+        'X-Signature': signature
+    }
+    
+    response = requests.post(
+        f"{BASE_URL}/payment/create",
+        json=data,
+        headers=headers
+    )
+    
+    return response.json()
+
+# Example usage
+result = create_payment(
+    amount=100.0,
+    customer_name="John Doe",
+    customer_email="john@example.com",
+    redirect_url="https://yoursite.com/success"
+)
+
+print(result)</code></pre>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="nodejs" role="tabpanel">
+                            <h6>Node.js Example - Create Payment</h6>
+                            <pre class="bg-dark text-light p-3 rounded"><code>const crypto = require('crypto');
+const axios = require('axios');
+
+const API_KEY = "{{ current_user.api_key }}";
+const API_SECRET = "{{ current_user.api_secret }}";
+const BASE_URL = "{{ request.host_url }}api";
+
+async function createPayment(amount, customerName, customerEmail, redirectUrl) {
+    const data = {
+        amount: amount,
+        customer_name: customerName,
+        customer_email: customerEmail,
+        redirect_url: redirectUrl
+    };
+    
+    // Generate signature
+    const payload = JSON.stringify(data);
+    const signature = crypto
+        .createHmac('sha256', API_SECRET)
+        .update(payload)
+        .digest('hex');
+    
+    const headers = {
+        'Content-Type': 'application/json',
+        'X-API-Key': API_KEY,
+        'X-Signature': signature
+    };
+    
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/payment/create`,
+            data,
+            { headers }
+        );
+        
+        return response.data;
+    } catch (error) {
+        console.error('Error:', error.response.data);
+        throw error;
+    }
+}
+
+// Example usage
+createPayment(100.0, "John Doe", "john@example.com", "https://yoursite.com/success")
+    .then(result => console.log(result))
+    .catch(error => console.error(error));</code></pre>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="curl" role="tabpanel">
+                            <h6>cURL Example - Create Payment</h6>
+                            <pre class="bg-dark text-light p-3 rounded"><code># First, generate the signature (this example uses openssl)
+DATA='{"amount":100.0,"customer_name":"John Doe","customer_email":"john@example.com","redirect_url":"https://yoursite.com/success"}'
+SIGNATURE=$(echo -n "$DATA" | openssl dgst -sha256 -hmac "{{ current_user.api_secret }}" | cut -d' ' -f2)
+
+curl -X POST "{{ request.host_url }}api/payment/create" \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: {{ current_user.api_key }}" \
+  -H "X-Signature: $SIGNATURE" \
+  -d "$DATA"</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

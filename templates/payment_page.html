@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Payment - Kamlai Multi Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .payment-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .payment-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .payment-body {
+            padding: 40px;
+        }
+        .qr-container {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .amount-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin: 20px 0;
+        }
+        .transaction-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .status-checking {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .upi-apps {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .upi-app {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .upi-app:hover {
+            transform: scale(1.1);
+        }
+        .payment-steps {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .step {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            line-height: 40px;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .step-text {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .timer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="payment-container">
+            <!-- Payment Header -->
+            <div class="payment-header">
+                <h2 class="mb-0">
+                    <i class="fas fa-mobile-alt me-2"></i>
+                    Complete Your Payment
+                </h2>
+                <p class="mb-0 mt-2 opacity-75">Scan QR code with any UPI app</p>
+            </div>
+            
+            <!-- Payment Body -->
+            <div class="payment-body">
+                <!-- Transaction Details -->
+                <div class="transaction-details">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Transaction ID:</strong><br>
+                            <code class="text-primary">{{ transaction.transaction_id }}</code>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Customer:</strong><br>
+                            {{ transaction.customer_name or 'Customer' }}
+                        </div>
+                    </div>
+                    {% if transaction.customer_email %}
+                    <div class="mt-2">
+                        <strong>Email:</strong> {{ transaction.customer_email }}
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Amount Display -->
+                <div class="text-center">
+                    <div class="amount-display">
+                        ₹{{ "%.2f"|format(transaction.amount) }}
+                    </div>
+                    <p class="text-muted">Amount to Pay</p>
+                </div>
+                
+                <!-- QR Code Container -->
+                <div class="qr-container pulse">
+                    <div id="qrcode"></div>
+                    <p class="mt-3 mb-0 text-muted">
+                        <i class="fas fa-qrcode me-2"></i>
+                        Scan this QR code with any UPI app
+                    </p>
+                </div>
+                
+                <!-- UPI Apps -->
+                <div class="upi-apps">
+                    <div class="upi-app" title="PhonePe">
+                        <img src="https://via.placeholder.com/40x40/5f259f/white?text=PP" alt="PhonePe" width="40">
+                    </div>
+                    <div class="upi-app" title="Google Pay">
+                        <img src="https://via.placeholder.com/40x40/4285f4/white?text=GP" alt="Google Pay" width="40">
+                    </div>
+                    <div class="upi-app" title="Paytm">
+                        <img src="https://via.placeholder.com/40x40/00baf2/white?text=PT" alt="Paytm" width="40">
+                    </div>
+                    <div class="upi-app" title="BHIM">
+                        <img src="https://via.placeholder.com/40x40/ff6b35/white?text=BH" alt="BHIM" width="40">
+                    </div>
+                    <div class="upi-app" title="Amazon Pay">
+                        <img src="https://via.placeholder.com/40x40/ff9900/white?text=AP" alt="Amazon Pay" width="40">
+                    </div>
+                </div>
+                
+                <!-- Payment Steps -->
+                <div class="payment-steps">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="text-center mx-3">
+                            <div class="step">1</div>
+                            <div class="step-text">Open UPI App</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-muted"></i>
+                        <div class="text-center mx-3">
+                            <div class="step">2</div>
+                            <div class="step-text">Scan QR Code</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-muted"></i>
+                        <div class="text-center mx-3">
+                            <div class="step">3</div>
+                            <div class="step-text">Enter PIN</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-muted"></i>
+                        <div class="text-center mx-3">
+                            <div class="step">4</div>
+                            <div class="step-text">Payment Done</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timer -->
+                <div class="timer">
+                    <i class="fas fa-clock me-2"></i>
+                    <strong>Time Remaining: <span id="timer">10:00</span></strong>
+                    <br>
+                    <small class="text-muted">This payment link will expire automatically</small>
+                </div>
+                
+                <!-- Status Checking -->
+                <div class="status-checking" id="statusChecking">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="spinner-border text-primary me-3" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div>
+                            <strong>Payment Detected!</strong><br>
+                            <small class="text-muted">Verifying your transaction...</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Manual Entry Option -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-outline-primary" onclick="toggleManualEntry()">
+                        <i class="fas fa-keyboard me-2"></i>
+                        Can't scan? Enter manually
+                    </button>
+                </div>
+                
+                <!-- Manual Entry Form -->
+                <div id="manualEntry" style="display: none;" class="mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0">Manual UPI Transfer</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>UPI ID:</strong><br>
+                                    <code>merchant@upi</code>
+                                    <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyToClipboard('merchant@upi')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Amount:</strong><br>
+                                    <code>₹{{ "%.2f"|format(transaction.amount) }}</code>
+                                    <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyToClipboard('{{ transaction.amount }}')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <strong>Reference:</strong><br>
+                                <code>{{ transaction.transaction_id }}</code>
+                                <button class="btn btn-sm btn-outline-secondary ms-2" onclick="copyToClipboard('{{ transaction.transaction_id }}')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footer Actions -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-success me-2" onclick="checkPaymentStatus()">
+                        <i class="fas fa-sync me-2"></i>
+                        Check Payment Status
+                    </button>
+                    <button class="btn btn-outline-danger" onclick="cancelPayment()">
+                        <i class="fas fa-times me-2"></i>
+                        Cancel Payment
+                    </button>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <small class="text-muted">
+                        <i class="fas fa-shield-alt me-1"></i>
+                        Your payment is secured by Kamlai Multi Service
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate QR Code
+        const qrCodeData = "{{ transaction.qr_code_data }}";
+        const qr = qrcode(0, 'M');
+        qr.addData(qrCodeData);
+        qr.make();
+        document.getElementById('qrcode').innerHTML = qr.createImgTag(4);
+        
+        // Timer countdown
+        let timeLeft = 600; // 10 minutes
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                window.location.href = '/payment/expired';
+                return;
+            }
+            
+            timeLeft--;
+        }
+        
+        // Update timer every second
+        const timerInterval = setInterval(updateTimer, 1000);
+        
+        // Check payment status periodically
+        let statusCheckInterval;
+        
+        function startStatusChecking() {
+            statusCheckInterval = setInterval(checkPaymentStatus, 3000);
+        }
+        
+        function checkPaymentStatus() {
+            fetch(`/api/payment/status/{{ transaction.transaction_id }}`, {
+                method: 'GET',
+                headers: {
+                    'X-API-Key': 'demo_key',
+                    'X-Signature': 'demo_signature'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.status !== 'PENDING') {
+                    clearInterval(statusCheckInterval);
+                    clearInterval(timerInterval);
+                    
+                    if (data.status === 'SUCCESS') {
+                        window.location.href = `/payment/success?txn={{ transaction.transaction_id }}`;
+                    } else {
+                        window.location.href = `/payment/failed?txn={{ transaction.transaction_id }}`;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Status check error:', error);
+            });
+        }
+        
+        function toggleManualEntry() {
+            const manualEntry = document.getElementById('manualEntry');
+            if (manualEntry.style.display === 'none') {
+                manualEntry.style.display = 'block';
+            } else {
+                manualEntry.style.display = 'none';
+            }
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show temporary tooltip or notification
+                alert('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+        
+        function cancelPayment() {
+            if (confirm('Are you sure you want to cancel this payment?')) {
+                window.location.href = '{{ transaction.redirect_url or "/" }}';
+            }
+        }
+        
+        // Start automatic status checking after 5 seconds
+        setTimeout(startStatusChecking, 5000);
+        
+        // Handle page visibility change (pause checking when page is hidden)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                clearInterval(statusCheckInterval);
+            } else {
+                startStatusChecking();
+            }
+        });
+    </script>
+</body>
+</html>
