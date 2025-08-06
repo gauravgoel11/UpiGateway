@@ -43,11 +43,11 @@ class OATSChatbot:
     def __init__(self):
         # Configuration
         self.base_url = "https://dev.oats-backend.otomashen.com"
-        self.email = "gaurav.int@otomashen.com"
-        self.password = "462lx@wCX&&0!k"
+        self.email = ""
+        self.password = ""
         self.login_url = f"{self.base_url}/rbca/token/"
         self.logout_url = f"{self.base_url}/login-api/logout/"
-        self.gemini_api_key = "AIzaSyAsVkN0ygVBsl2tVAN_Dq5E0AY5aabyrqA"
+        self.gemini_api_key = ""
         
         # Session setup
         self.session = self._create_session()
