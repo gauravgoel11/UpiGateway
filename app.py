@@ -12,6 +12,7 @@ import time
 import os
 
 # Selenium imports for browser automation
+#adding new comments to clarify the purpose of each import
 try:
     from selenium import webdriver
     from selenium.webdriver.common.by import By
