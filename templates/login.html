@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PhonePe Merchant Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      .mini-window {
+        width: 450px;
+        min-height: 550px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .window-header {
+        background: linear-gradient(135deg, #5f259f 0%, #7c3aed 100%);
+        color: white;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      .window-controls {
+        display: flex;
+        gap: 8px;
+      }
+      
+      .control-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+      }
+      
+      .close-btn { background: #ff5f57; }
+      .minimize-btn { background: #ffbd2e; }
+      .maximize-btn { background: #28ca42; }
+      
+      .login-container {
+        padding: 30px;
+        height: calc(100% - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      
+      .phonepe-logo {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #5f259f;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      
+      .form-control:focus {
+        border-color: #5f259f;
+        box-shadow: 0 0 0 0.2rem rgba(95, 37, 159, 0.25);
+      }
+      
+      .btn-primary {
+        background: linear-gradient(135deg, #5f259f 0%, #7c3aed 100%);
+        border: none;
+        padding: 12px;
+        font-weight: 500;
+      }
+      
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #4a1f7f 0%, #6b21a8 100%);
+      }
+      
+      .step-indicator {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      
+      .step {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #e9ecef;
+        color: #6c757d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        font-weight: bold;
+        position: relative;
+      }
+      
+      .step.active {
+        background: #5f259f;
+        color: white;
+      }
+      
+      .step.completed {
+        background: #28a745;
+        color: white;
+      }
+      
+      .step:not(:last-child):after {
+        content: '';
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 2px;
+        background: #e9ecef;
+      }
+      
+      .step.completed:not(:last-child):after {
+        background: #28a745;
+      }
+      
+      .otp-input {
+        font-size: 18px;
+        text-align: center;
+        letter-spacing: 8px;
+        font-weight: bold;
+      }
+      
+      .phone-input-group {
+        position: relative;
+      }
+      
+      .country-code {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        font-weight: 500;
+      }
+      
+      .phone-input {
+        padding-left: 50px;
+      }
+      
+      .alert {
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      
+      .resend-timer {
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+      
+      .mini-window-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body class="d-flex align-items-center justify-content-center" style="height: 100vh; background: #f0f2f5;">
+    
+    <!-- Mini Window Toggle Button -->
+    <div class="mini-window-toggle">
+      <button class="btn btn-outline-secondary btn-sm" onclick="openMiniWindow()">
+        <i class="fas fa-external-link-alt me-1"></i>
+        Open as Mini Window
+      </button>
+    </div>
+    
+    <div class="mini-window">
+      <!-- Window Header -->
+      <div class="window-header">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-shield-alt me-2"></i>
+          <span>PhonePe Merchant Authentication</span>
+        </div>
+        <div class="window-controls">
+          <button class="control-btn minimize-btn" title="Minimize"></button>
+          <button class="control-btn maximize-btn" title="Maximize"></button>
+          <button class="control-btn close-btn" title="Close" onclick="closeWindow()"></button>
+        </div>
+      </div>
+      
+      <!-- Login Form -->
+      <div class="login-container">
+        <div class="phonepe-logo">
+          <i class="fas fa-mobile-alt me-2"></i>
+          PhonePe Merchant
+        </div>
+        
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <div class="step {{ 'completed' if show_otp_form else 'active' }}">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="step {{ 'active' if show_otp_form else '' }}">
+            <i class="fas fa-key"></i>
+          </div>
+        </div>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+                <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} me-2"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        {% if not show_otp_form %}
+        <!-- Step 1: Phone Number and Merchant Details -->
+        <form method="post" id="phoneForm">
+          <input type="hidden" name="action" value="send_otp">
+          
+          <div class="mb-3">
+            <label for="merchant_name" class="form-label">
+              <i class="fas fa-store me-1"></i>
+              Merchant Name
+            </label>
+            <input class="form-control" type="text" id="merchant_name" name="merchant_name" 
+                   placeholder="Enter your business name" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="phone" class="form-label">
+              <i class="fas fa-phone me-1"></i>
+              Mobile Number
+            </label>
+            <div class="phone-input-group">
+              <div class="country-code">+91</div>
+              <input class="form-control phone-input" type="tel" id="phone" name="phone" 
+                     placeholder="Enter 10-digit mobile number" 
+                     pattern="[6-9][0-9]{9}" 
+                     maxlength="10" required>
+            </div>
+            <small class="form-text text-muted">
+              We'll send an OTP to verify your number
+            </small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary w-100" id="sendOtpBtn">
+            <i class="fas fa-paper-plane me-2"></i>
+            Send OTP
+          </button>
+        </form>
+        
+        {% else %}
+                 <!-- Step 2: OTP Verification -->
+         <div class="text-center mb-3">
+           <h6>OTP Sent to</h6>
+           <strong>+91 {{ phone }}</strong>
+           <p class="text-muted small">Please enter the 6-digit code</p>
+           
+           <!-- Development OTP Display -->
+           <div id="devOtpDisplay" class="alert alert-info mt-3" style="display: none;">
+             <strong>🔧 Development Mode:</strong><br>
+             Your OTP is: <span id="devOtpCode" class="fw-bold fs-5"></span>
+             <br><small>This is shown only in development mode</small>
+           </div>
+         </div>
+        
+        <form method="post" id="otpForm">
+          <input type="hidden" name="action" value="verify_otp">
+          
+          <div class="mb-3">
+            <input class="form-control otp-input" type="text" id="otp" name="otp" 
+                   placeholder="000000" 
+                   pattern="[0-9]{6}" 
+                   maxlength="6" 
+                   autocomplete="off" required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary w-100" id="verifyOtpBtn">
+            <i class="fas fa-check-circle me-2"></i>
+            Verify & Login
+          </button>
+        </form>
+        
+        <div class="text-center mt-3">
+          <button class="btn btn-link btn-sm" id="resendBtn" onclick="resendOtp()">
+            <i class="fas fa-redo me-1"></i>
+            Resend OTP
+          </button>
+          <div class="resend-timer" id="resendTimer"></div>
+        </div>
+        
+        <div class="text-center mt-3">
+          <a href="/" class="btn btn-outline-secondary btn-sm">
+            <i class="fas fa-arrow-left me-1"></i>
+            Back to Phone Number
+          </a>
+        </div>
+        {% endif %}
+        
+        <div class="text-center mt-4">
+          <small class="text-muted">
+            <i class="fas fa-shield-alt me-1"></i>
+            Secure PhonePe Authentication
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function closeWindow() {
+        if (window.opener) {
+          window.close();
+        } else {
+          window.location.href = 'about:blank';
+        }
+      }
+      
+      function openMiniWindow() {
+        const newWindow = window.open('/', '_blank', 'width=450,height=600,scrollbars=yes,resizable=yes');
+        if (newWindow) {
+          newWindow.focus();
+        }
+      }
+      
+      // Phone number formatting
+      document.getElementById('phone')?.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 10) {
+          value = value.substring(0, 10);
+        }
+        e.target.value = value;
+      });
+      
+      // OTP input formatting
+      document.getElementById('otp')?.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 6) {
+          value = value.substring(0, 6);
+        }
+        e.target.value = value;
+      });
+      
+      // Send OTP form handling
+      document.getElementById('phoneForm')?.addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('sendOtpBtn');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending OTP...';
+        submitBtn.disabled = true;
+        
+        // Re-enable button after 3 seconds if form submission fails
+        setTimeout(() => {
+          if (submitBtn.disabled) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }
+        }, 3000);
+      });
+      
+      // Verify OTP form handling
+      document.getElementById('otpForm')?.addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('verifyOtpBtn');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Verifying...';
+        submitBtn.disabled = true;
+        
+        // Re-enable button after 3 seconds if form submission fails
+        setTimeout(() => {
+          if (submitBtn.disabled) {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }
+        }, 3000);
+      });
+      
+      // Resend OTP function
+      function resendOtp() {
+        const resendBtn = document.getElementById('resendBtn');
+        const originalText = resendBtn.innerHTML;
+        
+        resendBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Sending...';
+        resendBtn.disabled = true;
+        
+        fetch('/api/resend_otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            resendBtn.innerHTML = '<i class="fas fa-check me-1"></i>Sent!';
+            startResendTimer();
+            setTimeout(() => {
+              resendBtn.innerHTML = originalText;
+            }, 2000);
+          } else {
+            throw new Error(data.error || 'Failed to resend OTP');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          resendBtn.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>Error';
+          setTimeout(() => {
+            resendBtn.innerHTML = originalText;
+            resendBtn.disabled = false;
+          }, 2000);
+        });
+      }
+      
+      // Resend timer
+      function startResendTimer() {
+        let timeLeft = 30;
+        const resendBtn = document.getElementById('resendBtn');
+        const timerDiv = document.getElementById('resendTimer');
+        
+        const timer = setInterval(() => {
+          timerDiv.textContent = `Resend available in ${timeLeft}s`;
+          timeLeft--;
+          
+          if (timeLeft < 0) {
+            clearInterval(timer);
+            timerDiv.textContent = '';
+            resendBtn.disabled = false;
+          }
+        }, 1000);
+      }
+      
+             // Start timer if on OTP page
+       document.addEventListener('DOMContentLoaded', function() {
+         const otpInput = document.getElementById('otp');
+         if (otpInput) {
+           startResendTimer();
+           otpInput.focus();
+           loadDevOtp(); // Load development OTP
+         }
+       });
+       
+       // Load development OTP for testing
+       function loadDevOtp() {
+         fetch('/api/get_dev_otp')
+           .then(response => response.json())
+           .then(data => {
+             if (data.success) {
+               document.getElementById('devOtpCode').textContent = data.otp;
+               document.getElementById('devOtpDisplay').style.display = 'block';
+             }
+           })
+           .catch(error => {
+             console.log('Development OTP not available (this is normal in production)');
+           });
+       }
+      
+      // Add some interactive effects
+      document.querySelectorAll('.control-btn').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+          this.style.opacity = '0.8';
+        });
+        btn.addEventListener('mouseleave', function() {
+          this.style.opacity = '1';
+        });
+      });
+    </script>
+  </body>
+</html>

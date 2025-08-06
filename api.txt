@@ -1,0 +1,1909 @@
+ok i am tracking some endpoint like this "@https://web-api.phonepe.com/apis/mi-web/v2/auth/web/login/initiate ""https://web-api.phonepe.com/apis/mi-web/v2/auth/web/login/initiate
+Request Method
+POST
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6eea28fa4e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:11 GMT
+server
+cloudflare
+set-cookie
+_CKB2N1BHVZ=/4zWvBTu9iyZzvVtU1mUj1eUuJd9dsAin09Z1teZVkUcNHunp5qYWLxhQOHhi2NY;Version=1;Comment="Phonepe Business CSRF";Domain=phonepe.com;Path=/;Max-Age=604800;Secure;HttpOnly; SameSite=None
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+accept-encoding
+x-b3-traceid
+8a4a2a3fbcfa3835
+x-content-type-options
+nosniff
+x-csrf-token
+quYohZ0KxgjPzCedTCAEB7JVXBRU3DgK
+x-encrypted-response
+false
+x-frame-options
+DENY
+x-request-backend-time
+1754157190772
+x-requested-method
+POST
+x-response-backend-time
+1754157191191
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+POST
+:path
+/apis/mi-web/v2/auth/web/login/initiate
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+content-length
+87
+content-type
+application/json
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _CKB2N1BHVZ=1s/Y4Bj2ixWY/9sEcCjIiHC7u7BwDuEZ8jVZ5IewB3m1+J8iob39Rg9nfRegWnRU; _X52F70K3N=X6W3dBMryVD9Y29cslBbOOkm58Rgcm6w; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+h-captcha-token
+P1_eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.haJwZACjZXhwzmiOUP6ncGFzc2tlecUDuHTQMSsUy7fQkC300z6ZlLlhnVaszqSa22Lgj8ZfaPTuIAf4e3bF71MzrfY3c8PHFHJuRqF-xMbcNU08KsPsJmJ-UA5csxSbgcEi-ZqqmCMsfIkfZ6MrvG_oFEFQKQlyvhp1A80tvP1YBfgBPQL0B_Ck_u5zhqKOv3emHthIMK-w2XlUXZbj8fj4rN0-fVTtHiemzAUWnXswIutmbiMxUOQNf5uKMZivnYEXptzKTzHIfIx-Qe7i15NmBHtnZnvlz2sb96KTPzH3iWxpPMy6pnvbxPD7mG83s8BmhbEYpco8SgFfLpdpEZwMPdvD4xlDb68vIyf7AnwexoG0dyKALdFFchhWv8QNEWS1NEhLW1Cj9QqL7DzfzwZV8-WTb9fq5_uM6yjUTGzImS762p2bPQVHGroio_ezw5zvD-T99arbsGgQbz_z5rUo-lS6WuP9Am0k9I1ATW8pwALTbxe6VWWhqjVI5UtS1_hkqWoGJi6G9hGNHpkm7tp-c8zcZRh0GMi8kVT3B59WblIGwXAidQXA8i_uYZtvMjhnbipGkxS4d96Pq7jZWFSBmKU45wmkjq5iBaQAfPeVoRqkPYAr2ZieHf1DJom3B09u-evYLNJ9v9Rc4WBsQp_s0jj2CHbkd4aolzncfgcBOFoTPyIE4dBJT1Q2tccAO2tu-j5hSs2SXQW7huJ95uj0HZtC7B05-QTonLiN5UqhQ5igFSUM_FWOQ49BGqPafIFX9ukA3oeIB4xnfVE8R18R4osaCjcNYc03oVCUiWHuKdFdIbpz6we8d-yWHDWC4My3YyKp6OhlCnVeHxmAebSWaZYVoHtue21cMQCkZ1zmGEPyIbZ-Y7hjSWyXLnl1UOPbdylrS4DC8-Cv-AvKnm3xw-QOufdlzaliL_wzu5WensDb_Z6Pw5wMX7ExQJ1Rpg1GkLZTbL5vPbHgqpV-3arD7ulo7OaZMBgBORCqTSHX2qltKi3M44P4VOY2CKrwcZQIA_GoKRmLxgelE1Y6h4X_BAhHLe57y5LwRCDviaeUuFaZjBfU6JW8svDjj6qwupa6Cah_ZcGZvTEPhs1GQh9ud69lap5Cpl2jPl92b1KqwPJmjMr4ZsT3X0Q3X1FhW2GT7Wld_Gsdnqww3hXeqRQcnFG8HeZ7KTRUybMUgGRVMoLbx6EihZsbkUI69KFkpqR0D71N4mtyNqjxA0gdysJ8-Cw7QsXq67YLe7kwqIyWz4GTFxXzvXBPf8cYbJ-hJ8Mi9cvJWLFqZHINwmNociCia3KnMWI3MmM0ZqhzaGFyZF9pZM4Pcupv.CKOmVVbOutMHr_uN2Yb5tfBHyWW-LsFnFhNiUjoUST8
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-csrf-token
+X6W3dBMryVD9Y29cslBbOOkm58Rgcm6w
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB
+" and this is the payload "{type: "OTP_V2", endpoint: "8864998737", channelType: "SMS", deviceFingerprint: "123"}
+channelType
+: 
+"SMS"
+deviceFingerprint
+: 
+"123"
+endpoint
+: 
+"8864998737"
+type
+: 
+"OTP_V2""responnse{"expiry":600,"token":"61959aea38cd734f8631d45b1e04e532"}
+this is other api that i found "@
+https://web-api.phonepe.com/apis/mi-web/v4/auth/web/login "Request URL
+https://web-api.phonepe.com/apis/mi-web/v4/auth/web/login
+Request Method
+POST
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6f79bc8c4e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:34 GMT
+server
+cloudflare
+set-cookie
+MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiMzM2MjIxZjctYTdmZi00N2U2LTkwNDctNGNiMjQ3N2NhODFiIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjE0LCJleHAiOjE3NTQxNjA4MTR9.C_WnnPt4JGUN5m4F2miltipADQBWPEEchX3gOW5Z9YM-cRKmHU05unSc3iHJjLGP_GWcuc3mL5TqKx-F7fbcmQ;Version=1;Comment=;Domain=phonepe.com;Path=/;Max-Age=5184000;Secure;HttpOnly
+set-cookie
+MERCHANT_USER_R_TOKEN=67af47c6-da08-47c1-a41d-f8a837300551;Version=1;Comment=;Domain=phonepe.com;Path=/;Max-Age=5184000;Secure;HttpOnly
+set-cookie
+_CKB2N1BHVZ=96rEhDCA8C2WyOdvaHG3m3Kjr6hoKsQM/np++tzoRV7FQvLEnigcEjoMuk7vBS8B;Version=1;Comment="Phonepe Business CSRF";Domain=phonepe.com;Path=/;Max-Age=604800;Secure;HttpOnly; SameSite=None
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+accept-encoding
+x-b3-traceid
+6ad0bbd5c22e1dbb
+x-content-type-options
+nosniff
+x-csrf-token
+ySKWL46JwaxRAkFpqtVzWkNx9wuy85tP
+x-encrypted-response
+false
+x-frame-options
+DENY
+x-request-backend-time
+1754157213744
+x-requested-method
+POST
+x-response-backend-time
+1754157214090
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+POST
+:path
+/apis/mi-web/v4/auth/web/login
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+content-length
+589
+content-type
+application/json
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; _CKB2N1BHVZ=/4zWvBTu9iyZzvVtU1mUj1eUuJd9dsAin09Z1teZVkUcNHunp5qYWLxhQOHhi2NY; _X52F70K3N=quYohZ0KxgjPzCedTCAEB7JVXBRU3DgK
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-csrf-token
+quYohZ0KxgjPzCedTCAEB7JVXBRU3DgK
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB"this is payload "{loginRequest: {type: "OTP_V2", deviceFingerprint: "123", endpoint: "8864998737", otp: "49193",…},…}
+deviceInfo
+: 
+{,…}
+browserFingerPrint
+: 
+{xosv: "Chrome 138", omid: "Web Browser", xdpi: "pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx"}
+browserFingerPrintOmid
+: 
+"Web Browser"
+browserFingerPrintXdpi
+: 
+"pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx"
+browserFingerPrintXosv
+: 
+"Chrome 138"
+channelType
+: 
+"WEB"
+userAgent
+: 
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+loginRequest
+: 
+{type: "OTP_V2", deviceFingerprint: "123", endpoint: "8864998737", otp: "49193",…}
+channelType
+: 
+"SMS"
+deviceFingerprint
+: 
+"123"
+endpoint
+: 
+"8864998737"
+otp
+: 
+"49193"
+token
+: 
+"61959aea38cd734f8631d45b1e04e532"
+type
+: 
+"OTP_V2""this is response "{
+    "userId": "OU2508012042533622519660",
+    "success": true,
+    "message": "",
+    "groupSelection": true,
+    "phone": "8864998737",
+    "isSignUp": false,
+    "consent": false,
+    "prefix": "O-Bearer",
+    "tokenExpiresAt": 0
+}"this is preview "{userld: "01.12508012042533622519660",
+consent: false
+groupSe1ection: true
+isSignUp: false
+message: "
+phone: "8864998737"
+prefix: "O- Bearer"
+success: true
+tokenExpiresAt:
+userld: "01.12508012042533622519660"
+success :
+true
+message: "
+, groupSe1ection :
+true"  and this is another api "Request URL
+https://web-api.phonepe.com/apis/mi-web/v1/user/groupSelection
+Request Method
+GET
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6f7cdc884e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:34 GMT
+server
+cloudflare
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+Accept-Encoding
+x-b3-traceid
+9cd122b5d1adc984
+x-content-type-options
+nosniff
+x-frame-options
+DENY
+x-request-backend-time
+1754157214243
+x-requested-method
+GET
+x-response-backend-time
+1754157214259
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+GET
+:path
+/apis/mi-web/v1/user/groupSelection
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiMzM2MjIxZjctYTdmZi00N2U2LTkwNDctNGNiMjQ3N2NhODFiIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjE0LCJleHAiOjE3NTQxNjA4MTR9.C_WnnPt4JGUN5m4F2miltipADQBWPEEchX3gOW5Z9YM-cRKmHU05unSc3iHJjLGP_GWcuc3mL5TqKx-F7fbcmQ; MERCHANT_USER_R_TOKEN=67af47c6-da08-47c1-a41d-f8a837300551; _CKB2N1BHVZ=96rEhDCA8C2WyOdvaHG3m3Kjr6hoKsQM/np++tzoRV7FQvLEnigcEjoMuk7vBS8B; _X52F70K3N=ySKWL46JwaxRAkFpqtVzWkNx9wuy85tP
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB"this is preview "[{merchantName: "MUKESH DATTATRYA KOL",…}, {merchantName: "Create New Business",…}]
+0
+: 
+{merchantName: "MUKESH DATTATRYA KOL",…}
+merchantName
+: 
+"MUKESH DATTATRYA KOL"
+userGroupNamespace
+: 
+{userId: "OU2508012042533622519660", groupName: "merchant", groupValue: "MQCCO2UN3", groupId: 15910458,…}
+1
+: 
+{merchantName: "Create New Business",…}
+merchantName
+: 
+"Create New Business"
+userGroupNamespace
+: 
+{userId: "OU2508012042533622519660", groupName: "merchant", groupValue: "M23Y5GD8UFEVG",…}" and this is response "[
+    {
+        "merchantName": "MUKESH DATTATRYA KOL",
+        "userGroupNamespace": {
+            "userId": "OU2508012042533622519660",
+            "groupName": "merchant",
+            "groupValue": "MQCCO2UN3",
+            "groupId": 15910458,
+            "status": "ACTIVE",
+            "active": true,
+            "userRole": {
+                "roleId": "R2009211617492894506103",
+                "active": true
+            },
+            "clientUniqueId": "MU2508012042532370655823"
+        }
+    },
+    {
+        "merchantName": "Create New Business",
+        "userGroupNamespace": {
+            "userId": "OU2508012042533622519660",
+            "groupName": "merchant",
+            "groupValue": "M23Y5GD8UFEVG",
+            "groupId": 15910557,
+            "status": "ACTIVE",
+            "active": true,
+            "userRole": {
+                "roleId": "R1908081841518350641692",
+                "active": true
+            },
+            "clientUniqueId": "MU2508012057524012587099"
+        }
+    }
+]"this is new api update session "Request URL
+https://web-api.phonepe.com/apis/mi-web/v1/user/updateSession
+Request Method
+POST
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6fba4c284e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:44 GMT
+server
+cloudflare
+set-cookie
+MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw;Version=1;Comment=;Domain=phonepe.com;Path=/;Max-Age=5183990;Secure;HttpOnly
+set-cookie
+MERCHANT_USER_R_TOKEN=9978ec77-42b5-439b-b46b-9db8d2c94c18;Version=1;Comment=;Domain=phonepe.com;Path=/;Max-Age=5183990;Secure;HttpOnly
+set-cookie
+_CKB2N1BHVZ=6KHWlSv8kQqPyPdrflyAskuanbgLcOMno0Vq0NarfnbaIagWEEVqNuQsg4ZduQoc;Version=1;Comment="Phonepe Business CSRF";Domain=phonepe.com;Path=/;Max-Age=604800;Secure;HttpOnly; SameSite=None
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+accept-encoding
+x-b3-traceid
+98df39c812bbebf3
+x-content-type-options
+nosniff
+x-csrf-token
+fXYFWHWmnahVWFqYHMdj41iSdHaS2vOx
+x-encrypted-response
+false
+x-frame-options
+DENY
+x-request-backend-time
+1754157224076
+x-requested-method
+POST
+x-response-backend-time
+1754157224109
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+POST
+:path
+/apis/mi-web/v1/user/updateSession
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+content-length
+24
+content-type
+application/json
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiMzM2MjIxZjctYTdmZi00N2U2LTkwNDctNGNiMjQ3N2NhODFiIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjE0LCJleHAiOjE3NTQxNjA4MTR9.C_WnnPt4JGUN5m4F2miltipADQBWPEEchX3gOW5Z9YM-cRKmHU05unSc3iHJjLGP_GWcuc3mL5TqKx-F7fbcmQ; MERCHANT_USER_R_TOKEN=67af47c6-da08-47c1-a41d-f8a837300551; _CKB2N1BHVZ=96rEhDCA8C2WyOdvaHG3m3Kjr6hoKsQM/np++tzoRV7FQvLEnigcEjoMuk7vBS8B; _X52F70K3N=ySKWL46JwaxRAkFpqtVzWkNx9wuy85tP
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-csrf-token
+ySKWL46JwaxRAkFpqtVzWkNx9wuy85tP
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB
+"this is preview "{userId: "OU2508012042533622519660", success: true, message: "",…}
+consent
+: 
+false
+encryptedToken
+: 
+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw"
+groupId
+: 
+15910458
+groupName
+: 
+"merchant"
+groupSelection
+: 
+false
+groupValue
+: 
+"MQCCO2UN3"
+groups
+: 
+[{userId: "OU2508012042533622519660", groupName: "merchant", groupValue: "MQCCO2UN3",…}]
+isSignUp
+: 
+false
+merchantUserId
+: 
+"MU2508012042532370655823"
+message
+: 
+""
+phone
+: 
+"8864998737"
+prefix
+: 
+"O-Bearer"
+refreshToken
+: 
+"9978ec77-42b5-439b-b46b-9db8d2c94c18"
+roleId
+: 
+"R2009211617492894506103"
+roleName
+: 
+"supervisor"
+success
+: 
+true
+token
+: 
+"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw"
+tokenExpiresAt
+: 
+1754160824
+userAccess
+: 
+[]
+userId
+: 
+"OU2508012042533622519660"
+" and this is response "{
+    "userId": "OU2508012042533622519660",
+    "success": true,
+    "message": "",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw",
+    "encryptedToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw",
+    "refreshToken": "9978ec77-42b5-439b-b46b-9db8d2c94c18",
+    "groupSelection": false,
+    "groups": [
+        {
+            "userId": "OU2508012042533622519660",
+            "groupName": "merchant",
+            "groupValue": "MQCCO2UN3",
+            "namespace": "oculus",
+            "groupId": 15910458,
+            "status": "ACTIVE",
+            "active": true,
+            "userRole": {
+                "roleId": "R2009211617492894506103",
+                "active": true
+            },
+            "clientUniqueId": "MU2508012042532370655823"
+        }
+    ],
+    "phone": "8864998737",
+    "groupId": 15910458,
+    "groupName": "merchant",
+    "groupValue": "MQCCO2UN3",
+    "roleId": "R2009211617492894506103",
+    "roleName": "supervisor",
+    "merchantUserId": "MU2508012042532370655823",
+    "userAccess": [],
+    "isSignUp": false,
+    "consent": false,
+    "prefix": "O-Bearer",
+    "tokenExpiresAt": 1754160824
+}"this is permission "Request URL
+https://web-api.phonepe.com/apis/mi-web/v1/user/permissions
+Request Method
+GET
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6fbb7f0e4e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:44 GMT
+server
+cloudflare
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+Accept-Encoding
+x-b3-traceid
+d0fba28cb7d76c38
+x-content-type-options
+nosniff
+x-frame-options
+DENY
+x-request-backend-time
+1754157224256
+x-requested-method
+GET
+x-response-backend-time
+1754157224270
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+GET
+:path
+/apis/mi-web/v1/user/permissions
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw; MERCHANT_USER_R_TOKEN=9978ec77-42b5-439b-b46b-9db8d2c94c18; _CKB2N1BHVZ=6KHWlSv8kQqPyPdrflyAskuanbgLcOMno0Vq0NarfnbaIagWEEVqNuQsg4ZduQoc; _X52F70K3N=fXYFWHWmnahVWFqYHMdj41iSdHaS2vOx
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB
+and this is preview "[{permission: "getStoreTerminals", permissionId: "ff1d78b6499c633c4fff4c77f0e4ad9e",…},…]
+0
+: 
+{permission: "getStoreTerminals", permissionId: "ff1d78b6499c633c4fff4c77f0e4ad9e",…}
+1
+: 
+{permission: "WEBHOOK_READ_ACCESS", permissionId: "64cef297247b16f3ac156435fe5521cb",…}
+2
+: 
+{permission: "pos_access", permissionId: "e86b753a828961f8f4a6bc08ab41f58e", namespace: "OCULUS",…}
+3
+: 
+{permission: "view_escalation_access", permissionId: "7bd01377b2d32f7b1cf14a2acf5403de",…}
+4
+: 
+{permission: "operations", permissionId: "35b9813638af4731f567e09e5e0b0e0f", namespace: "BULLHORN",…}
+5
+: 
+{permission: "manageNotificationReceiver", permissionId: "97bbfd9030e09794c9eda6510ccf3c7c",…}
+6
+: 
+{permission: "TRANSACTION_ACCESS", permissionId: "8530f378b3beba1cb440b1868c27f110",…}
+7
+: 
+{permission: "paylink_update_access", permissionId: "a28cfd50208843f487cc7896d612de52",…}
+8
+: 
+{permission: "trend_transaction_access", permissionId: "ae6f6f5d946c14cf53777d4db4735639",…}
+9
+: 
+{permission: "syncKhataSummary", permissionId: "eb2b9cc4d5e807e0d660386d917c29d1", namespace: "KHATA",…}
+10
+: 
+{permission: "OMX_CONFIG_READ", permissionId: "663eee23b99d4b0e03e181e14e89feb7",…}
+11
+: 
+{permission: "getKhataDetails", permissionId: "c14e0e6246b7665b1b0d5a005e97b50d", namespace: "KHATA",…}
+12
+: 
+{permission: "addressWorkflow_Update", permissionId: "a28d38fdab404f7e38089c9a91164a85",…}
+13
+: 
+{permission: "bot_token_access", permissionId: "f3bfd0f37620f11e1c041abae6beb289", namespace: "IRIS",…}
+14
+: 
+{permission: "fetchCustomSettings", permissionId: "8c88d942cc0e759a48f5aca65e0ce782",…}
+15
+: 
+{permission: "getQrposList", permissionId: "73cdd19b5282697d3449685a1a5325b5",…}
+16
+: 
+{permission: "PAYLINK_MANAGE_ACCESS", permissionId: "257f7d64ab7416a6c08761f644c13912",…}
+17
+: 
+{permission: "geolocation_access", permissionId: "04799e036d4e8b28011c992915e3598b",…}
+18
+: 
+{permission: "profile_access", permissionId: "4fee1def9946c7aab5ad475150970f3b", namespace: "OCULUS",…}
+19
+: 
+{permission: "store_access", permissionId: "a2bbf8fd61ac55c85238a167ee3a8dc2", namespace: "OCULUS",…}
+20
+: 
+{permission: "view_app_feature", permissionId: "3b413c593e7ed8e73d789fbca4fa5d71", namespace: "OCULUS",…}
+21
+: 
+{permission: "addStoreAttribute", permissionId: "a79d0d7c483a684c749f49494f5b67ab",…}
+22
+: 
+{permission: "getBranchName_GET", permissionId: "4003dfc9daf221c568b212f0794640ee",…}
+23
+: 
+{permission: "fetchMerchantSettings", permissionId: "eeef51742be60ac0e16611b9d9b8dddb",…}
+24
+: 
+{permission: "topicSync", permissionId: "bb241816b1dd0c1652e4114b65881beb", namespace: "BULLHORN",…}
+25
+: 
+{permission: "restoreMessages", permissionId: "52f24a0104de656182e4a097e163d13e",…}
+26
+: 
+{permission: "getMerchantsFromSuperMerchant", permissionId: "6b05a2a7ca7ca82f404855e267b844e2",…}
+27
+: 
+{permission: "getUserDetails", permissionId: "49373ebeb44e5d103bcfde91a2c663be", namespace: "KHATA",…}
+28
+: 
+{permission: "syncMessages", permissionId: "6e44e74313507cdfb801436a9f76fc53", namespace: "BULLHORN",…}
+29
+: 
+{permission: "PAYLINK_READ_ACCESS", permissionId: "487724606800feddd3114c7b33856538",…}
+30
+: 
+{permission: "getMerchantDetails", permissionId: "d28c6b8c805a545b83c9746b5b9660cd",…}
+31
+: 
+{permission: "evaluateJourney_POST", permissionId: "ff2b53735ab736d710ec7f1d57e0889c",…}
+32
+: 
+{permission: "paylink_create_access", permissionId: "cc9fabc287dd88e52696ea7648f4155b",…}
+33
+: 
+{permission: "getCbaTemplate_POST", permissionId: "ac3bf2ecf407abcf53839a85490a17b5",…}
+34
+: 
+{permission: "ticker_access", permissionId: "d8a70ba5ce57cf2efc52b5fd1531e289", namespace: "EARNEST",…}
+35
+: 
+{permission: "storeAccess", permissionId: "6fd42a2dee04a0fbf3b7d411fd28ef18",…}
+36
+: 
+{permission: "get_merchant_profile", permissionId: "3abc785726bd2f332e2481bee16871fa",…}
+37
+: 
+{permission: "getStoreDetail", permissionId: "96608ac8a50e4e59b4f9cfd6505614b9",…}
+38
+: 
+{permission: "product_access", permissionId: "caf3691dccdab9ce80b6d68f67d98fd2",…}
+39
+: 
+{permission: "addPushNotificationReceiver", permissionId: "d5d69255accf3b851e8c36519137b888",…}
+40
+: 
+{permission: "getStoreList", permissionId: "652e200cf8c2ae87642395934b0f94f5",…}
+41
+: 
+{permission: "registerDevice", permissionId: "7ae0016c91d64d0892e4396193f4a4c8", namespace: "ZENCAST",…}
+42
+: 
+{permission: "create_feedback_access", permissionId: "27ef247e9a50711c499f228dbfdf2619",…}
+43
+: 
+{permission: "syncEntityDetails", permissionId: "bb6ad45bc551b1047bde287bda953898", namespace: "KHATA",…}
+44
+: 
+{permission: "addressWorkflow_Status", permissionId: "7ee7a3e83f33253f123f898dd5ae6421",…}
+45
+: 
+{permission: "paylink_read_access", permissionId: "e20275bcd33acf65e8dff9e418f45d89",…}
+46
+: 
+{permission: "addressWorkflow_Init", permissionId: "4fe5b7037b74016181d8d7e50bf1591b",…}
+47
+: 
+{permission: "readMessages", permissionId: "01895bbcdf4a202de0b38160838c3f70", namespace: "BULLHORN",…}
+48
+: 
+{permission: "publishMessages", permissionId: "93a9597ffca583e7b1c8f05d9b4c970f",…}
+49
+: 
+{permission: "readTopics", permissionId: "0995bf3746bd8e33f69988709c9bef99", namespace: "BULLHORN",…}
+50
+: 
+{permission: "evaluateMerchantBulkRequestForTeam", permissionId: "90e74ff3ae3c61c092eaa2808187ab11",…}
+51
+: 
+{permission: "evaluateMerchantBulkRequest", permissionId: "008d8f2b1d734003dd929db2a4b9653e",…}
+52
+: 
+{permission: "getQrText", permissionId: "9004ab8f428004518684258586a37652",…}
+53
+: 
+{permission: "permissions_access", permissionId: "40dc6e2625e6283f5ea3fcb5dab0e304",…}
+54
+: 
+{permission: "transaction_access", permissionId: "abd9bc04f2d87beb35dbfb8bf48a8a5d",…}
+55
+: 
+{permission: "view_escalation_access", permissionId: "dfd4452c587787f7b9586872183833a7",…}
+56
+: 
+{permission: "search_transaction_access", permissionId: "856ba1322d97541a2bbdb3430e7884d3",…}
+57
+: 
+{permission: "updatePushNotificationReceiver", permissionId: "dfb4e8103607d919b3731fbbcbe9db29",…}
+58
+: 
+{permission: "qrcodes_access", permissionId: "69fe3022a4a06ee4c854f36d14174469", namespace: "OCULUS",…}
+59
+: 
+{permission: "reports_access", permissionId: "8e69392a243ff78a06409ac86a90e417", namespace: "OCULUS",…}
+60
+: 
+{permission: "syncLedger", permissionId: "262fc60c62c9833afc025af09df91aa5", namespace: "KHATA",…}
+61
+: 
+{permission: "getUserPnResponse", permissionId: "14433f444a7cf558b92bd36839f5b8b5",…}
+62
+: 
+{permission: "downtime_access", permissionId: "f7de04d62bdea96136dfffb86b52413d", namespace: "OCULUS",…}
+63
+: 
+{permission: "getStoreAttribute", permissionId: "fe68bd2dba6a0177d77a1928e094fc41",…}
+64
+: 
+{permission: "REPORT_ACCESS", permissionId: "67aab22cb7659c6e34c47f51ecec5329",…}
+65
+: 
+{permission: "viewMerchantPost", permissionId: "9ee5b9ca4cb1d5e08aeec8aa87f36f29",…}
+66
+: 
+{permission: "GET_SERVICE_LINES", permissionId: "3df3a751e2a6a32e63a9a2e176b0192a",…}
+"and this is response"[
+    {
+        "permission": "getStoreTerminals",
+        "permissionId": "ff1d78b6499c633c4fff4c77f0e4ad9e",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "WEBHOOK_READ_ACCESS",
+        "permissionId": "64cef297247b16f3ac156435fe5521cb",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "pos_access",
+        "permissionId": "e86b753a828961f8f4a6bc08ab41f58e",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "view_escalation_access",
+        "permissionId": "7bd01377b2d32f7b1cf14a2acf5403de",
+        "namespace": "IRIS",
+        "active": true
+    },
+    {
+        "permission": "operations",
+        "permissionId": "35b9813638af4731f567e09e5e0b0e0f",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "manageNotificationReceiver",
+        "permissionId": "97bbfd9030e09794c9eda6510ccf3c7c",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "TRANSACTION_ACCESS",
+        "permissionId": "8530f378b3beba1cb440b1868c27f110",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "paylink_update_access",
+        "permissionId": "a28cfd50208843f487cc7896d612de52",
+        "namespace": "ATHENA",
+        "active": true
+    },
+    {
+        "permission": "trend_transaction_access",
+        "permissionId": "ae6f6f5d946c14cf53777d4db4735639",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "syncKhataSummary",
+        "permissionId": "eb2b9cc4d5e807e0d660386d917c29d1",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "OMX_CONFIG_READ",
+        "permissionId": "663eee23b99d4b0e03e181e14e89feb7",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "getKhataDetails",
+        "permissionId": "c14e0e6246b7665b1b0d5a005e97b50d",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "addressWorkflow_Update",
+        "permissionId": "a28d38fdab404f7e38089c9a91164a85",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "bot_token_access",
+        "permissionId": "f3bfd0f37620f11e1c041abae6beb289",
+        "namespace": "IRIS",
+        "active": true
+    },
+    {
+        "permission": "fetchCustomSettings",
+        "permissionId": "8c88d942cc0e759a48f5aca65e0ce782",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "getQrposList",
+        "permissionId": "73cdd19b5282697d3449685a1a5325b5",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "PAYLINK_MANAGE_ACCESS",
+        "permissionId": "257f7d64ab7416a6c08761f644c13912",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "geolocation_access",
+        "permissionId": "04799e036d4e8b28011c992915e3598b",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "profile_access",
+        "permissionId": "4fee1def9946c7aab5ad475150970f3b",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "store_access",
+        "permissionId": "a2bbf8fd61ac55c85238a167ee3a8dc2",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "view_app_feature",
+        "permissionId": "3b413c593e7ed8e73d789fbca4fa5d71",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "addStoreAttribute",
+        "permissionId": "a79d0d7c483a684c749f49494f5b67ab",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "getBranchName_GET",
+        "permissionId": "4003dfc9daf221c568b212f0794640ee",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "fetchMerchantSettings",
+        "permissionId": "eeef51742be60ac0e16611b9d9b8dddb",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "topicSync",
+        "permissionId": "bb241816b1dd0c1652e4114b65881beb",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "restoreMessages",
+        "permissionId": "52f24a0104de656182e4a097e163d13e",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "getMerchantsFromSuperMerchant",
+        "permissionId": "6b05a2a7ca7ca82f404855e267b844e2",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "getUserDetails",
+        "permissionId": "49373ebeb44e5d103bcfde91a2c663be",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "syncMessages",
+        "permissionId": "6e44e74313507cdfb801436a9f76fc53",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "PAYLINK_READ_ACCESS",
+        "permissionId": "487724606800feddd3114c7b33856538",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "getMerchantDetails",
+        "permissionId": "d28c6b8c805a545b83c9746b5b9660cd",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "evaluateJourney_POST",
+        "permissionId": "ff2b53735ab736d710ec7f1d57e0889c",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "paylink_create_access",
+        "permissionId": "cc9fabc287dd88e52696ea7648f4155b",
+        "namespace": "ATHENA",
+        "active": true
+    },
+    {
+        "permission": "getCbaTemplate_POST",
+        "permissionId": "ac3bf2ecf407abcf53839a85490a17b5",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "ticker_access",
+        "permissionId": "d8a70ba5ce57cf2efc52b5fd1531e289",
+        "namespace": "EARNEST",
+        "active": true
+    },
+    {
+        "permission": "storeAccess",
+        "permissionId": "6fd42a2dee04a0fbf3b7d411fd28ef18",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "get_merchant_profile",
+        "permissionId": "3abc785726bd2f332e2481bee16871fa",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "getStoreDetail",
+        "permissionId": "96608ac8a50e4e59b4f9cfd6505614b9",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "product_access",
+        "permissionId": "caf3691dccdab9ce80b6d68f67d98fd2",
+        "namespace": "STORE_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "addPushNotificationReceiver",
+        "permissionId": "d5d69255accf3b851e8c36519137b888",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "getStoreList",
+        "permissionId": "652e200cf8c2ae87642395934b0f94f5",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "registerDevice",
+        "permissionId": "7ae0016c91d64d0892e4396193f4a4c8",
+        "namespace": "ZENCAST",
+        "active": true
+    },
+    {
+        "permission": "create_feedback_access",
+        "permissionId": "27ef247e9a50711c499f228dbfdf2619",
+        "namespace": "BRICKBAT",
+        "active": true
+    },
+    {
+        "permission": "syncEntityDetails",
+        "permissionId": "bb6ad45bc551b1047bde287bda953898",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "addressWorkflow_Status",
+        "permissionId": "7ee7a3e83f33253f123f898dd5ae6421",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "paylink_read_access",
+        "permissionId": "e20275bcd33acf65e8dff9e418f45d89",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "addressWorkflow_Init",
+        "permissionId": "4fe5b7037b74016181d8d7e50bf1591b",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "readMessages",
+        "permissionId": "01895bbcdf4a202de0b38160838c3f70",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "publishMessages",
+        "permissionId": "93a9597ffca583e7b1c8f05d9b4c970f",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "readTopics",
+        "permissionId": "0995bf3746bd8e33f69988709c9bef99",
+        "namespace": "BULLHORN",
+        "active": true
+    },
+    {
+        "permission": "evaluateMerchantBulkRequestForTeam",
+        "permissionId": "90e74ff3ae3c61c092eaa2808187ab11",
+        "namespace": "CHIMERA",
+        "active": true
+    },
+    {
+        "permission": "evaluateMerchantBulkRequest",
+        "permissionId": "008d8f2b1d734003dd929db2a4b9653e",
+        "namespace": "CHIMERA",
+        "active": true
+    },
+    {
+        "permission": "getQrText",
+        "permissionId": "9004ab8f428004518684258586a37652",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "permissions_access",
+        "permissionId": "40dc6e2625e6283f5ea3fcb5dab0e304",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "transaction_access",
+        "permissionId": "abd9bc04f2d87beb35dbfb8bf48a8a5d",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "view_escalation_access",
+        "permissionId": "dfd4452c587787f7b9586872183833a7",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "search_transaction_access",
+        "permissionId": "856ba1322d97541a2bbdb3430e7884d3",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "updatePushNotificationReceiver",
+        "permissionId": "dfb4e8103607d919b3731fbbcbe9db29",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "qrcodes_access",
+        "permissionId": "69fe3022a4a06ee4c854f36d14174469",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "reports_access",
+        "permissionId": "8e69392a243ff78a06409ac86a90e417",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "syncLedger",
+        "permissionId": "262fc60c62c9833afc025af09df91aa5",
+        "namespace": "KHATA",
+        "active": true
+    },
+    {
+        "permission": "getUserPnResponse",
+        "permissionId": "14433f444a7cf558b92bd36839f5b8b5",
+        "namespace": "LEGION",
+        "active": true
+    },
+    {
+        "permission": "downtime_access",
+        "permissionId": "f7de04d62bdea96136dfffb86b52413d",
+        "namespace": "OCULUS",
+        "active": true
+    },
+    {
+        "permission": "getStoreAttribute",
+        "permissionId": "fe68bd2dba6a0177d77a1928e094fc41",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "REPORT_ACCESS",
+        "permissionId": "67aab22cb7659c6e34c47f51ecec5329",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    },
+    {
+        "permission": "viewMerchantPost",
+        "permissionId": "9ee5b9ca4cb1d5e08aeec8aa87f36f29",
+        "namespace": "MERCHANT_ONBOARDING",
+        "active": true
+    },
+    {
+        "permission": "GET_SERVICE_LINES",
+        "permissionId": "3df3a751e2a6a32e63a9a2e176b0192a",
+        "namespace": "OMX_SERVICE",
+        "active": true
+    }
+]"this is api me "Request URL
+https://web-api.phonepe.com/apis/mi-web/v1/user/me
+Request Method
+GET
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6fbc593c4e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:44 GMT
+server
+cloudflare
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+Accept-Encoding
+x-b3-traceid
+98c1602333a89dd9
+x-content-type-options
+nosniff
+x-frame-options
+DENY
+x-request-backend-time
+1754157224398
+x-requested-method
+GET
+x-response-backend-time
+1754157224411
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+GET
+:path
+/apis/mi-web/v1/user/me
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw; MERCHANT_USER_R_TOKEN=9978ec77-42b5-439b-b46b-9db8d2c94c18; _CKB2N1BHVZ=6KHWlSv8kQqPyPdrflyAskuanbgLcOMno0Vq0NarfnbaIagWEEVqNuQsg4ZduQoc; _X52F70K3N=fXYFWHWmnahVWFqYHMdj41iSdHaS2vOx
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB
+" this is preview "{userId: "OU2508012042533622519660", phoneNumber: "8864998737", name: "GAURAV GOEL", active: true,…}
+active
+: 
+true
+blacklisted
+: 
+false
+emailVerified
+: 
+false
+groupId
+: 
+15910458
+groupName
+: 
+"merchant"
+groupStatus
+: 
+"ACTIVE"
+groupValue
+: 
+"MQCCO2UN3"
+hasPassword
+: 
+true
+merchantUserId
+: 
+"MU2508012042532370655823"
+name
+: 
+"GAURAV GOEL"
+phoneNumber
+: 
+"8864998737"
+phoneNumberVerified
+: 
+true
+roleId
+: 
+"R2009211617492894506103"
+userId
+: 
+"OU2508012042533622519660"" and this is response "{
+    "userId": "OU2508012042533622519660",
+    "phoneNumber": "8864998737",
+    "name": "GAURAV GOEL",
+    "active": true,
+    "emailVerified": false,
+    "phoneNumberVerified": true,
+    "blacklisted": false,
+    "hasPassword": true,
+    "groupName": "merchant",
+    "groupValue": "MQCCO2UN3",
+    "merchantUserId": "MU2508012042532370655823",
+    "groupId": 15910458,
+    "groupStatus": "ACTIVE",
+    "roleId": "R2009211617492894506103"
+}"this is another api profile "Request URL
+https://web-api.phonepe.com/apis/mo-web/v1/merchant/profile
+Request Method
+GET
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6fbd1b074e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:44 GMT
+server
+cloudflare
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+Accept-Encoding
+x-content-type-options
+nosniff
+x-frame-options
+DENY
+x-request-backend-time
+1754157224517
+x-requested-method
+GET
+x-response-backend-time
+1754157224555
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+GET
+:path
+/apis/mo-web/v1/merchant/profile
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw; MERCHANT_USER_R_TOKEN=9978ec77-42b5-439b-b46b-9db8d2c94c18; _CKB2N1BHVZ=6KHWlSv8kQqPyPdrflyAskuanbgLcOMno0Vq0NarfnbaIagWEEVqNuQsg4ZduQoc; _X52F70K3N=fXYFWHWmnahVWFqYHMdj41iSdHaS2vOx
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB
+"this is preview "{success: true,…}
+data
+: 
+{merchantId: "MQCCO2UN3", fullName: "MR MUKESH DATTATRAY KOLHE", displayName: "MUKESH DATTATRYA KOL",…}
+address
+: 
+{building: "Near the jain mandir", street: "Jawala, Jamkhed, Ahmadnagar District", locality: "",…}
+attributes
+: 
+[,…]
+blacklisted
+: 
+false
+businessUnit
+: 
+"MASS_RETAIL"
+category
+: 
+"CT1911051919558116615862"
+createdAt
+: 
+1552325218826
+disabled
+: 
+false
+displayName
+: 
+"MUKESH DATTATRYA KOL"
+email
+: 
+"noreply@phonepe.com"
+fullName
+: 
+"MR MUKESH DATTATRAY  KOLHE"
+merchantId
+: 
+"MQCCO2UN3"
+phoneNumber
+: 
+"83xxxxx413"
+pincode
+: 
+"413201"
+subCategory
+: 
+"CT1911051922064371804510"
+superCategory
+: 
+"CT1908200012289784592158"
+type
+: 
+"P2M_LIMITED"
+success
+: 
+	true" and response "{
+    "success": true,
+    "data": {
+        "merchantId": "MQCCO2UN3",
+        "fullName": "MR MUKESH DATTATRAY  KOLHE",
+        "displayName": "MUKESH DATTATRYA KOL",
+        "type": "P2M_LIMITED",
+        "phoneNumber": "83xxxxx413",
+        "email": "noreply@phonepe.com",
+        "pincode": "413201",
+        "createdAt": 1552325218826,
+        "attributes": [
+            {
+                "value": false,
+                "active": true,
+                "merchantId": "MQCCO2UN3",
+                "type": "TRANSACTION_SMS_NOTIFICATION_ENABLED",
+                "createdAt": 1716044911497,
+                "updateAt": 1749322486500
+            },
+            {
+                "value": "LARGE",
+                "active": true,
+                "merchantId": "MQCCO2UN3",
+                "type": "DERIVED_BIZ_SIZE",
+                "createdAt": 1746057258599,
+                "updateAt": 1749322486501
+            },
+            {
+                "value": "FULL_KYC",
+                "active": true,
+                "merchantId": "MQCCO2UN3",
+                "type": "MO_DERIVED_KYC_TAG",
+                "createdAt": 1686194528073,
+                "updateAt": 1749322486500
+            }
+        ],
+        "address": {
+            "building": "Near the jain mandir",
+            "street": "Jawala, Jamkhed, Ahmadnagar District",
+            "locality": "",
+            "city": "ahemadnagar",
+            "state": "Maharashtra",
+            "country": "India",
+            "pinCode": "413201",
+            "lineOne": "Near the jain mandir",
+            "lineTwo": "Jawala, Jamkhed, Ahmadnagar District"
+        },
+        "superCategory": "CT1908200012289784592158",
+        "category": "CT1911051919558116615862",
+        "subCategory": "CT1911051922064371804510",
+        "businessUnit": "MASS_RETAIL",
+        "blacklisted": false,
+        "disabled": false
+    }
+}"
+another api stats "Request URL
+https://web-api.phonepe.com/apis/mi-web/v3/transactions/metrics/stats
+Request Method
+POST
+Status Code
+200 OK
+Remote Address
+104.17.76.195:443
+Referrer Policy
+strict-origin-when-cross-origin
+access-control-allow-credentials
+true
+access-control-allow-headers
+X-DEVICE-FINGERPRINT, Content-Disposition, DNT, Content-Length , X-USER-ROLE, DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range, Origin, X-Requested-With, Content-Type, Accept, X-APP-ID, X-CSRF-TOKEN, Set-Cookie, NAMESPACE, FINGERPRINT, X-CAPTCHA-TOKEN, x-source-type, x-app-version, x-source-platform, h-captcha-token, X-INSTANCE-ID, X-HANDSHAKE-KEY, X-WORKFLOW-ID
+access-control-allow-methods
+GET, POST, OPTIONS, PUT, DELETE, PATCH
+access-control-allow-origin
+https://business.phonepe.com
+access-control-expose-headers
+X-CSRF-TOKEN, X-USER-ROLE, Content-Length
+cf-cache-status
+DYNAMIC
+cf-ray
+968f6fc339904e88-DEL
+content-encoding
+gzip
+content-security-policy
+default-src 'self'; script-src 'self' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; style-src https://fonts.googleapis.com 'unsafe-inline' 'self'; img-src https://imgstatic.phonepe.com 'self' data:; font-src https://fonts.gstatic.com/ 'self' data:; connect-src 'self'; report-uri https://csp.phonepe.com/log; frame-src https://www.google.com/recaptcha/
+content-type
+application/json
+date
+Sat, 02 Aug 2025 17:53:45 GMT
+server
+cloudflare
+set-cookie
+_CKB2N1BHVZ=9o7C5C3YtQO4/fRXQHeVhkuxqeRKFrst9mBN5IySQD1hT3y5kDX0QnVqI2TCkAaD;Version=1;Comment="Phonepe Business CSRF";Domain=phonepe.com;Path=/;Max-Age=604800;Secure;HttpOnly; SameSite=None
+strict-transport-security
+max-age=0; includeSubDomains; preload
+vary
+accept-encoding
+x-b3-traceid
+f6d80d23d0f68414
+x-content-type-options
+nosniff
+x-csrf-token
+xwM7QlsdYTkjimdmHfP6uW1Y1mFghOq3
+x-encrypted-response
+false
+x-frame-options
+DENY
+x-request-backend-time
+1754157225498
+x-requested-method
+POST
+x-response-backend-time
+1754157225739
+x-xss-protection
+1; mode=block
+:authority
+web-api.phonepe.com
+:method
+POST
+:path
+/apis/mi-web/v3/transactions/metrics/stats
+:scheme
+https
+accept
+application/json, text/plain, */*
+accept-encoding
+gzip, deflate, br, zstd
+accept-language
+en-US,en;q=0.9
+content-length
+130
+content-type
+application/json
+cookie
+_ppabwduref=PAUREF2508012134274150351761; _ppabwdcid=ZXlKaGJHY2lPaUpJVXpVeE1pSjkuZXlKcGMzTWlPaUpRYUc5dVpWQmxSMkZ5Wm1sbGJHUWlMQ0pxZEdraU9pSTJNREJsWWpjMVl5MDVZalV4TFRReU4yUXRPR1U1TlMxa01ETXpNekF5Tnprek5EUWlMQ0pwWVhRaU9qRTJOekUyTURReU5ERXNJbTVpWmlJNk1UWTNNVFl3TkRFeU1Td2ljM1ZpSWpvaVFsVlRTVTVGVTFOZlYwVkNYMFJCVTBoQ1QwRlNSQ0lzSW5KdmJHVWlPaUpwYm1kbGMzUWlmUS5rdkcxQUJCNGJpcnVQSllRektFa1NYME9sUlBINVFDNW9tX2k5Mm9CNG9mV25vV0c4eFp3cTMwT1cxdEVCX3J5Zm4wTzhFVUd2MnE5VGlrMUxJaUw4Zw==; _ppabwdsid=2602c485-c97a-4936-8b73-e7285e554b0b; MERCHANT_USER_A_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJpZGVudGl0eU1hbmFnZXIiLCJ2ZXJzaW9uIjoiNC4wIiwidGlkIjoiOWYxNjQzNmEtZDdjYy00ODhiLWE0OGUtOGY0NzIyZjdlZDgyIiwic2lkIjoiM2VhYmNjMmMtZWY4NS00ZmMzLTgxNTktODllZmM5YzA0MDBhIiwiaWF0IjoxNzU0MTU3MjI0LCJleHAiOjE3NTQxNjA4MjR9.cZOOkIauLfgdKb1q0x-OIaUSAdbyG_xyPUdWC6jv8qRajLYDQCNJYSrJMZ6pwEjlOOrkKafdS-vWReUuEm6htw; MERCHANT_USER_R_TOKEN=9978ec77-42b5-439b-b46b-9db8d2c94c18; _CKB2N1BHVZ=4JDWvRSAhCbQ+t1YTmjG2kinlr0GD/kgtWJnz6Cvc1pHPdFhHUn30JQETwHEZYWH; _X52F70K3N=niYnh4BA1SBegr71Kpoo9NsTrolLDrBT
+fingerprint
+pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx.pbweb_0509fa8c9a9e3ee4a85c455da97661fe_g1YWx
+namespace
+insights
+origin
+https://business.phonepe.com
+priority
+u=1, i
+referer
+https://business.phonepe.com/
+sec-ch-ua
+"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"
+sec-ch-ua-mobile
+?0
+sec-ch-ua-platform
+"Windows"
+sec-fetch-dest
+empty
+sec-fetch-mode
+cors
+sec-fetch-site
+same-site
+user-agent
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+x-app-id
+oculus
+x-csrf-token
+niYnh4BA1SBegr71Kpoo9NsTrolLDrBT
+x-device-fingerprint
+123
+x-source-platform
+WEB
+x-source-type
+WEB
+"{success: true, response: {,…}}
+response
+: 
+{,…}
+result
+: 
+{transactionCountList: [0, 0, 2, 2, 0, 1], transactionAmountList: [0, 0, 81000, 40000, 0, 29000],…}
+totalCount
+: 
+5
+totalSum
+: 
+15000000
+success
+: 
+true this is response "{
+    "success": true,
+    "response": {
+        "result": {
+            "transactionCountList": [
+                0,
+                0,
+                2,
+                2,
+                0,
+                1
+            ],
+            "transactionAmountList": [
+                0.0,
+                0.0,
+                81000.0,
+                40000.0,
+                0.0,
+                29000.0
+            ],
+            "transactionDateList": [
+                "2025-07-28T00:00:00.000+05:30",
+                "2025-07-29T00:00:00.000+05:30",
+                "2025-07-30T00:00:00.000+05:30",
+                "2025-07-31T00:00:00.000+05:30",
+                "2025-08-01T00:00:00.000+05:30",
+                "2025-08-02T00:00:00.000+05:30"
+            ],
+            "transactionAverageList": [
+                0.0,
+                0.0,
+                40500.0,
+                20000.0,
+                0.0,
+                29000.0
+            ]
+        },
+        "totalSum": 1.5E7,
+        "totalCount": 5
+    }
+}"

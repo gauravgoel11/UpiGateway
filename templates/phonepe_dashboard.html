@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PhonePe Business Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      .dashboard-header {
+        background: linear-gradient(135deg, #5f259f 0%, #7c3aed 100%);
+        color: white;
+        padding: 20px 0;
+        margin-bottom: 30px;
+      }
+      
+      .api-status {
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .merchant-info {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+      }
+      
+      .endpoint-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        border-left: 4px solid #5f259f;
+      }
+      
+      .endpoint-status {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      
+      .status-success { background: #d4edda; color: #155724; }
+      .status-pending { background: #fff3cd; color: #856404; }
+      .status-error { background: #f8d7da; color: #721c24; }
+      
+      .api-response {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        font-family: monospace;
+        font-size: 0.85rem;
+        max-height: 300px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+      }
+      
+      .action-btn {
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h2 class="mb-1">
+              <i class="fas fa-layer-group me-2"></i>
+              PhonePe API Dashboard
+            </h2>
+            <p class="mb-0 opacity-75">Connected to Official PhonePe Business APIs</p>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-link me-1"></i>
+              API Connected
+            </span>
+            <a href="/logout" class="btn btn-outline-light">
+              <i class="fas fa-sign-out-alt me-1"></i>
+              Logout
+            </a>
+          </div>
+        </div>
+
+        <!-- API Status -->
+        <div class="api-status">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h6 class="mb-1">
+                <i class="fas fa-user me-2"></i>
+                User ID: {{ user_id }}
+              </h6>
+              <p class="mb-0 opacity-75">
+                <i class="fas fa-phone me-2"></i>
+                Phone: +91 {{ phone }}
+              </p>
+            </div>
+            <div class="col-md-4 text-end">
+              <span class="endpoint-status status-success">
+                <i class="fas fa-check-circle me-1"></i>
+                Authenticated
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Flash Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show">
+              <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' }} me-2"></i>
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <!-- Navigation Tabs -->
+      <ul class="nav nav-tabs mb-4" id="dashboardTabs" role="tablist">
+        {% if is_phonepe_authenticated %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="phonepe-tab" data-bs-toggle="tab" data-bs-target="#phonepe" type="button" role="tab">
+            <i class="fas fa-store me-2"></i>PhonePe Business
+          </button>
+        </li>
+        {% endif %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link {% if not is_phonepe_authenticated %}active{% endif %}" id="captured-tab" data-bs-toggle="tab" data-bs-target="#captured" type="button" role="tab">
+            <i class="fas fa-globe me-2"></i>Captured Auth Data
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sessions-tab" data-bs-toggle="tab" data-bs-target="#sessions" type="button" role="tab">
+            <i class="fas fa-browser me-2"></i>Browser Sessions
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="dashboardTabsContent">
+        {% if is_phonepe_authenticated %}
+        <!-- PhonePe Business Tab -->
+        <div class="tab-pane fade show active" id="phonepe" role="tabpanel">
+          <!-- Merchant Information -->
+          <div class="merchant-info">
+            <h5 class="mb-3">
+              <i class="fas fa-store me-2"></i>
+              Available Merchants
+            </h5>
+            
+            {% if merchant_groups %}
+              <div class="row">
+                {% for merchant in merchant_groups %}
+                <div class="col-md-6 mb-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h6 class="card-title">{{ merchant.merchantName }}</h6>
+                      <p class="card-text">
+                        <small class="text-muted">
+                          <strong>Merchant ID:</strong> {{ merchant.userGroupNamespace.groupValue }}<br>
+                          <strong>Group ID:</strong> {{ merchant.userGroupNamespace.groupId }}<br>
+                          <strong>Status:</strong> 
+                          <span class="endpoint-status status-{{ 'success' if merchant.userGroupNamespace.status == 'ACTIVE' else 'error' }}">
+                            {{ merchant.userGroupNamespace.status }}
+                          </span>
+                        </small>
+                      </p>
+                      {% if selected_merchant == merchant.userGroupNamespace.groupValue %}
+                        <span class="badge bg-primary">Currently Selected</span>
+                      {% else %}
+                        <button class="btn btn-outline-primary btn-sm" onclick="selectMerchant('{{ merchant.userGroupNamespace.groupValue }}')">
+                          Select Merchant
+                        </button>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                No merchant groups available or not loaded yet.
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Captured Authentication Data Tab -->
+        <div class="tab-pane fade {% if not is_phonepe_authenticated %}show active{% endif %}" id="captured" role="tabpanel">
+          <div class="merchant-info">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h5 class="mb-0">
+                <i class="fas fa-shield-alt me-2"></i>
+                Captured Authentication Data
+              </h5>
+              <div>
+                <a href="/browser" class="btn btn-warning btn-sm me-2">
+                  <i class="fas fa-globe me-2"></i>Launch Browser
+                </a>
+                <button class="btn btn-primary btn-sm" onclick="refreshCapturedData()">
+                  <i class="fas fa-sync me-2"></i>Refresh
+                </button>
+              </div>
+            </div>
+
+            {% if captured_data %}
+              <!-- Stats Cards -->
+              <div class="row mb-4">
+                <div class="col-md-3">
+                  <div class="card text-center">
+                    <div class="card-body">
+                      <h3 class="text-primary mb-0">{{ captured_data|length }}</h3>
+                      <small class="text-muted">Total Sessions</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card text-center">
+                    <div class="card-body">
+                      <h3 class="text-warning mb-0">{{ grouped_data.keys()|length }}</h3>
+                      <small class="text-muted">Unique Domains</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card text-center">
+                    <div class="card-body">
+                      <h3 class="text-success mb-0" id="totalTokens">0</h3>
+                      <small class="text-muted">Auth Tokens</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card text-center">
+                    <div class="card-body">
+                      <h3 class="text-info mb-0" id="totalCookies">0</h3>
+                      <small class="text-muted">Cookies</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Grouped Data by Domain -->
+              {% for domain, items in grouped_data.items() %}
+              <div class="endpoint-card mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="mb-0">
+                    <i class="fas fa-globe me-2 text-primary"></i>
+                    {{ domain }}
+                  </h6>
+                  <span class="badge bg-secondary">{{ items|length }} session(s)</span>
+                </div>
+                
+                <div class="row">
+                  {% for item in items %}
+                  <div class="col-md-6 mb-3">
+                    <div class="card border-start-4 border-start-primary">
+                      <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                          <h6 class="card-title mb-0">{{ item.site_name }}</h6>
+                          <small class="text-muted">{{ item.captured_at[:19] }}</small>
+                        </div>
+                        
+                        <p class="card-text text-muted small mb-2">
+                          Session: {{ item.session_id[:8] }}...
+                        </p>
+                        
+                        {% set tokens = item.auth_tokens|from_json %}
+                        {% set cookies = item.cookies|from_json %}
+                        
+                        <div class="mb-2">
+                          {% if tokens %}
+                            <span class="badge bg-success me-1">{{ tokens.keys()|length }} Tokens</span>
+                          {% endif %}
+                          {% if cookies %}
+                            <span class="badge bg-info me-1">{{ cookies|length }} Cookies</span>
+                          {% endif %}
+                          {% if item.local_storage and item.local_storage != '{}' %}
+                            <span class="badge bg-warning">Local Storage</span>
+                          {% endif %}
+                        </div>
+                        
+                        <button class="btn btn-outline-primary btn-sm" onclick="viewAuthData('{{ item.id }}')">
+                          <i class="fas fa-eye me-1"></i>View Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="alert alert-info text-center py-5">
+                <i class="fas fa-info-circle fa-3x mb-3 text-muted"></i>
+                <h5>No Authentication Data Captured</h5>
+                <p class="text-muted mb-3">
+                  Use the browser automation feature to capture authentication data from websites.
+                </p>
+                <a href="/browser" class="btn btn-warning">
+                  <i class="fas fa-globe me-2"></i>Launch Browser Automation
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Browser Sessions Tab -->
+        <div class="tab-pane fade" id="sessions" role="tabpanel">
+          <div class="merchant-info">
+            <h5 class="mb-3">
+              <i class="fas fa-browser me-2"></i>
+              Browser Sessions
+            </h5>
+            
+            {% if browser_sessions %}
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Session ID</th>
+                      <th>Status</th>
+                      <th>Current URL</th>
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for session in browser_sessions %}
+                    <tr>
+                      <td>
+                        <code class="text-muted">{{ session.session_id[:8] }}...</code>
+                      </td>
+                      <td>
+                        <span class="endpoint-status status-{{ 'success' if session.status == 'active' else 'error' }}">
+                          {{ session.status }}
+                        </span>
+                      </td>
+                      <td>
+                        <small class="text-muted">{{ session.current_url[:50] }}{% if session.current_url|length > 50 %}...{% endif %}</small>
+                      </td>
+                      <td>
+                        <small class="text-muted">{{ session.created_at[:19] }}</small>
+                      </td>
+                      <td>
+                        <small class="text-muted">{{ session.updated_at[:19] }}</small>
+                      </td>
+                      <td>
+                        <button class="btn btn-outline-primary btn-sm" onclick="viewSessionData('{{ session.session_id }}')">
+                          <i class="fas fa-eye me-1"></i>View Data
+                        </button>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            {% else %}
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                No browser sessions found.
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- API Endpoints Testing -->
+      <div class="row">
+        <!-- Transactions Endpoint -->
+        <div class="col-md-6">
+          <div class="endpoint-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">
+                <i class="fas fa-exchange-alt me-2"></i>
+                Transactions API
+              </h6>
+              <span class="endpoint-status status-pending" id="transactionsStatus">
+                <i class="fas fa-clock me-1"></i>
+                Not Tested
+              </span>
+            </div>
+            
+            <p class="text-muted small mb-3">
+              Fetch transaction data from PhonePe Business API
+            </p>
+            
+            <button class="btn btn-primary action-btn w-100 mb-3" onclick="testTransactionsAPI()">
+              <i class="fas fa-play me-2"></i>
+              Test Transactions API
+            </button>
+            
+            <div id="transactionsResponse" class="api-response" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Dashboard Data Endpoint -->
+        <div class="col-md-6">
+          <div class="endpoint-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">
+                <i class="fas fa-chart-line me-2"></i>
+                Dashboard API
+              </h6>
+              <span class="endpoint-status status-pending" id="dashboardStatus">
+                <i class="fas fa-clock me-1"></i>
+                Not Tested
+              </span>
+            </div>
+            
+            <p class="text-muted small mb-3">
+              Fetch dashboard analytics from PhonePe Business API
+            </p>
+            
+            <button class="btn btn-primary action-btn w-100 mb-3" onclick="testDashboardAPI()">
+              <i class="fas fa-play me-2"></i>
+              Test Dashboard API
+            </button>
+            
+            <div id="dashboardResponse" class="api-response" style="display: none;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Documentation -->
+      <div class="endpoint-card">
+        <h5 class="mb-3">
+          <i class="fas fa-book me-2"></i>
+          Discovered PhonePe API Endpoints
+        </h5>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Authentication Endpoints</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <code class="text-success">POST /apis/mi-web/v4/auth/web/login</code>
+                <small class="d-block text-muted">Phone + OTP authentication</small>
+              </li>
+              <li class="mb-2">
+                <code class="text-success">GET /apis/mi-web/v1/user/groupSelection</code>
+                <small class="d-block text-muted">Get available merchant groups</small>
+              </li>
+              <li class="mb-2">
+                <code class="text-success">POST /apis/mi-web/v1/user/updateSession</code>
+                <small class="d-block text-muted">Select merchant and update session</small>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="col-md-6">
+            <h6>Business Data Endpoints</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <code class="text-warning">GET /apis/mi-web/v1/transactions</code>
+                <small class="d-block text-muted">Transaction data (needs discovery)</small>
+              </li>
+              <li class="mb-2">
+                <code class="text-warning">GET /apis/mi-web/v1/dashboard</code>
+                <small class="d-block text-muted">Dashboard analytics (needs discovery)</small>
+              </li>
+              <li class="mb-2">
+                <code class="text-warning">GET /apis/mi-web/v1/analytics</code>
+                <small class="d-block text-muted">Business analytics (needs discovery)</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-info mt-3">
+          <i class="fas fa-lightbulb me-2"></i>
+          <strong>Note:</strong> Some endpoints may require additional parameters or different paths. 
+          Use browser developer tools on <a href="https://business.phonepe.com" target="_blank">business.phonepe.com</a> 
+          to discover exact endpoint URLs and required headers.
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="endpoint-card">
+            <h6 class="mb-3">
+              <i class="fas fa-tools me-2"></i>
+              Quick Actions
+            </h6>
+            
+            <div class="d-flex gap-2 flex-wrap">
+              <a href="https://business.phonepe.com" target="_blank" class="btn btn-outline-primary">
+                <i class="fas fa-external-link-alt me-2"></i>
+                Open Official PhonePe
+              </a>
+              <button class="btn btn-outline-success" onclick="exportSessionData()">
+                <i class="fas fa-download me-2"></i>
+                Export Session Data
+              </button>
+              <button class="btn btn-outline-info" onclick="viewAPIHeaders()">
+                <i class="fas fa-code me-2"></i>
+                View API Headers
+              </button>
+              <a href="/" class="btn btn-outline-secondary">
+                <i class="fas fa-home me-2"></i>
+                Back to Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function selectMerchant(merchantId) {
+        fetch('/api/phonepe/select-merchant', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ merchantId: merchantId })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            location.reload();
+          } else {
+            alert('Error selecting merchant: ' + data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Failed to select merchant');
+        });
+      }
+
+      function testTransactionsAPI() {
+        const statusEl = document.getElementById('transactionsStatus');
+        const responseEl = document.getElementById('transactionsResponse');
+        
+        statusEl.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Testing...';
+        statusEl.className = 'endpoint-status status-pending';
+        
+        fetch('/api/phonepe/transactions')
+          .then(response => response.json())
+          .then(data => {
+            responseEl.style.display = 'block';
+            responseEl.textContent = JSON.stringify(data, null, 2);
+            
+            if (data.success) {
+              statusEl.innerHTML = '<i class="fas fa-check-circle me-1"></i>Success';
+              statusEl.className = 'endpoint-status status-success';
+            } else {
+              statusEl.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>Needs Implementation';
+              statusEl.className = 'endpoint-status status-pending';
+            }
+          })
+          .catch(error => {
+            responseEl.style.display = 'block';
+            responseEl.textContent = 'Error: ' + error.message;
+            statusEl.innerHTML = '<i class="fas fa-times-circle me-1"></i>Error';
+            statusEl.className = 'endpoint-status status-error';
+          });
+      }
+
+      function testDashboardAPI() {
+        const statusEl = document.getElementById('dashboardStatus');
+        const responseEl = document.getElementById('dashboardResponse');
+        
+        statusEl.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Testing...';
+        statusEl.className = 'endpoint-status status-pending';
+        
+        // For now, show that this endpoint needs to be implemented
+        setTimeout(() => {
+          responseEl.style.display = 'block';
+          responseEl.textContent = JSON.stringify({
+            "message": "Dashboard API endpoint needs to be discovered",
+            "suggestion": "Use browser dev tools on business.phonepe.com to find the actual endpoint",
+            "status": "implementation_needed"
+          }, null, 2);
+          
+          statusEl.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>Needs Discovery';
+          statusEl.className = 'endpoint-status status-pending';
+        }, 1000);
+      }
+
+      function exportSessionData() {
+        const sessionData = {
+          user_id: '{{ user_id }}',
+          phone: '{{ phone }}',
+          merchant_groups: {{ merchant_groups | tojson }},
+          selected_merchant: '{{ selected_merchant }}',
+          exported_at: new Date().toISOString()
+        };
+        
+        const blob = new Blob([JSON.stringify(sessionData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'phonepe_session_data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      function viewAPIHeaders() {
+        const headers = {
+          "Required Headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+            "Origin": "https://business.phonepe.com",
+            "Referer": "https://business.phonepe.com/",
+            "X-App-Id": "oculus",
+            "X-Source-Platform": "WEB",
+            "X-Source-Type": "WEB"
+          },
+          "Authentication Headers": {
+            "X-Csrf-Token": "Dynamic CSRF token from login",
+            "Cookie": "MERCHANT_USER_A_TOKEN=JWT_ACCESS_TOKEN; MERCHANT_USER_R_TOKEN=REFRESH_TOKEN"
+          },
+          "Optional Headers": {
+            "X-Device-Fingerprint": "Device identification",
+            "Fingerprint": "Browser fingerprint",
+            "Namespace": "insights"
+          }
+        };
+        
+        alert(JSON.stringify(headers, null, 2));
+      }
+
+      // Captured data functions
+      function refreshCapturedData() {
+        location.reload();
+      }
+
+      function viewAuthData(itemId) {
+        // Create modal to show detailed auth data
+        fetch(`/api/browser/captured-data?item_id=${itemId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success && data.data.length > 0) {
+              const item = data.data[0];
+              const modalContent = `
+                <div class="modal fade" id="authDataModal" tabindex="-1">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Authentication Data - ${item.site_name}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <h6>Site Information</h6>
+                            <table class="table table-sm">
+                              <tr><td><strong>Domain:</strong></td><td>${item.site_domain}</td></tr>
+                              <tr><td><strong>Site Name:</strong></td><td>${item.site_name}</td></tr>
+                              <tr><td><strong>Session ID:</strong></td><td><code>${item.session_id}</code></td></tr>
+                              <tr><td><strong>Captured:</strong></td><td>${new Date(item.captured_at).toLocaleString()}</td></tr>
+                            </table>
+                          </div>
+                          <div class="col-md-6">
+                            <h6>Data Summary</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                              ${JSON.parse(item.auth_tokens || '{}') && Object.keys(JSON.parse(item.auth_tokens)).length > 0 ? 
+                                `<span class="badge bg-success">${Object.keys(JSON.parse(item.auth_tokens)).length} Tokens</span>` : ''}
+                              ${JSON.parse(item.cookies || '[]').length > 0 ? 
+                                `<span class="badge bg-info">${JSON.parse(item.cookies).length} Cookies</span>` : ''}
+                              ${item.local_storage && item.local_storage !== '{}' ? 
+                                '<span class="badge bg-warning">Local Storage</span>' : ''}
+                              ${item.session_storage && item.session_storage !== '{}' ? 
+                                '<span class="badge bg-primary">Session Storage</span>' : ''}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="accordion" id="dataAccordion">
+                          ${Object.keys(JSON.parse(item.auth_tokens || '{}')).length > 0 ? `
+                            <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#tokensCollapse">
+                                  Authentication Tokens (${Object.keys(JSON.parse(item.auth_tokens)).length})
+                                </button>
+                              </h2>
+                              <div id="tokensCollapse" class="accordion-collapse collapse" data-bs-parent="#dataAccordion">
+                                <div class="accordion-body">
+                                  <pre class="bg-light p-3 rounded"><code>${JSON.stringify(JSON.parse(item.auth_tokens), null, 2)}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          ` : ''}
+                          
+                          ${JSON.parse(item.cookies || '[]').length > 0 ? `
+                            <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cookiesCollapse">
+                                  Cookies (${JSON.parse(item.cookies).length})
+                                </button>
+                              </h2>
+                              <div id="cookiesCollapse" class="accordion-collapse collapse" data-bs-parent="#dataAccordion">
+                                <div class="accordion-body">
+                                  <pre class="bg-light p-3 rounded"><code>${JSON.stringify(JSON.parse(item.cookies), null, 2)}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          ` : ''}
+                          
+                          ${item.local_storage && item.local_storage !== '{}' ? `
+                            <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#localStorageCollapse">
+                                  Local Storage
+                                </button>
+                              </h2>
+                              <div id="localStorageCollapse" class="accordion-collapse collapse" data-bs-parent="#dataAccordion">
+                                <div class="accordion-body">
+                                  <pre class="bg-light p-3 rounded"><code>${JSON.stringify(JSON.parse(item.local_storage), null, 2)}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          ` : ''}
+                          
+                          ${item.session_storage && item.session_storage !== '{}' ? `
+                            <div class="accordion-item">
+                              <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sessionStorageCollapse">
+                                  Session Storage
+                                </button>
+                              </h2>
+                              <div id="sessionStorageCollapse" class="accordion-collapse collapse" data-bs-parent="#dataAccordion">
+                                <div class="accordion-body">
+                                  <pre class="bg-light p-3 rounded"><code>${JSON.stringify(JSON.parse(item.session_storage), null, 2)}</code></pre>
+                                </div>
+                              </div>
+                            </div>
+                          ` : ''}
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="exportAuthData(${item.id})">Export JSON</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+              
+              // Remove existing modal if any
+              const existingModal = document.getElementById('authDataModal');
+              if (existingModal) {
+                existingModal.remove();
+              }
+              
+              // Add modal to page
+              document.body.insertAdjacentHTML('beforeend', modalContent);
+              
+              // Show modal
+              const modal = new bootstrap.Modal(document.getElementById('authDataModal'));
+              modal.show();
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching auth data:', error);
+            alert('Error loading authentication data');
+          });
+      }
+
+      function viewSessionData(sessionId) {
+        fetch(`/api/browser/captured-data?session_id=${sessionId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(`Session ${sessionId} has ${data.data.length} captured authentication records.\\n\\nClick on individual items in the Captured Auth Data tab to view details.`);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching session data:', error);
+            alert('Error loading session data');
+          });
+      }
+
+      function exportAuthData(itemId) {
+        fetch(`/api/browser/captured-data?item_id=${itemId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success && data.data.length > 0) {
+              const item = data.data[0];
+              const exportData = {
+                site_domain: item.site_domain,
+                site_name: item.site_name,
+                session_id: item.session_id,
+                captured_at: item.captured_at,
+                auth_tokens: JSON.parse(item.auth_tokens || '{}'),
+                cookies: JSON.parse(item.cookies || '[]'),
+                local_storage: JSON.parse(item.local_storage || '{}'),
+                session_storage: JSON.parse(item.session_storage || '{}'),
+                api_endpoints: JSON.parse(item.api_endpoints || '[]')
+              };
+              
+              const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `auth_data_${item.site_domain}_${new Date().toISOString().split('T')[0]}.json`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            }
+          })
+          .catch(error => {
+            console.error('Error exporting auth data:', error);
+            alert('Error exporting data');
+          });
+      }
+
+      // Calculate stats on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        {% if captured_data %}
+        let totalTokens = 0;
+        let totalCookies = 0;
+        
+        {% for item in captured_data %}
+          const tokens_{{ loop.index }} = JSON.parse('{{ item.auth_tokens|safe }}' || '{}');
+          const cookies_{{ loop.index }} = JSON.parse('{{ item.cookies|safe }}' || '[]');
+          totalTokens += Object.keys(tokens_{{ loop.index }}).length;
+          totalCookies += cookies_{{ loop.index }}.length;
+        {% endfor %}
+        
+        document.getElementById('totalTokens').textContent = totalTokens;
+        document.getElementById('totalCookies').textContent = totalCookies;
+        {% endif %}
+      });
+    </script>
+  </body>
+</html> 

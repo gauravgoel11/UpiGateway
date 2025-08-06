@@ -1,0 +1,85 @@
+body {
+  background: #f7fafc;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.loading {
+  animation: pulse 1.5s infinite;
+}
+
+/* Hover effects for interactive elements */
+.btn:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+/* PhonePe brand colors */
+.phonepe-purple {
+  color: #5f259f;
+}
+
+.phonepe-gradient {
+  background: linear-gradient(135deg, #5f259f 0%, #7c3aed 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stats-card {
+    margin-bottom: 15px;
+  }
+  
+  .filter-section .row > div {
+    margin-bottom: 15px;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .btn, .filter-section, .auth-token-section {
+    display: none !important;
+  }
+  
+  .table-container {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

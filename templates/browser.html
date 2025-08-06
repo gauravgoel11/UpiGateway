@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Browser Automation - Auth Data Capture</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      .browser-header {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+        padding: 20px 0;
+        margin-bottom: 20px;
+      }
+      
+      .browser-controls {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+      }
+      
+      .browser-status {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      
+      .captured-data-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-left: 4px solid #f59e0b;
+      }
+      
+      .data-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #e9ecef;
+      }
+      
+      .token-badge {
+        background: #e3f2fd;
+        color: #1976d2;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        margin: 2px;
+        display: inline-block;
+      }
+      
+      .status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      
+      .status-active { background: #10b981; }
+      .status-inactive { background: #ef4444; }
+      .status-loading { background: #f59e0b; animation: pulse 2s infinite; }
+      
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      
+      .url-bar {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 10px;
+        font-family: monospace;
+      }
+      
+      .json-viewer {
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 10px;
+        font-family: monospace;
+        font-size: 0.85rem;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      
+      .alert-custom {
+        border-radius: 10px;
+        border: none;
+        padding: 15px;
+      }
+      
+      .btn-browser {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        border: none;
+        color: white;
+        border-radius: 8px;
+        padding: 10px 20px;
+      }
+      
+      .btn-browser:hover {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="browser-header">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h1><i class="fas fa-globe me-3"></i>Browser Automation</h1>
+            <p class="mb-0">Capture authentication data from any website</p>
+          </div>
+          <div>
+            <a href="/" class="btn btn-light">
+              <i class="fas fa-home me-2"></i>Home
+            </a>
+            <a href="/dashboard" class="btn btn-light ms-2">
+              <i class="fas fa-chart-bar me-2"></i>Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Browser Controls -->
+      <div class="browser-controls">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" id="urlInput" class="form-control url-bar" placeholder="Enter URL to visit (e.g., https://example.com/login)" value="">
+              <button class="btn btn-browser" type="button" id="navigateBtn">
+                <i class="fas fa-arrow-right me-2"></i>Navigate
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex gap-2">
+              <button class="btn btn-success" id="createSessionBtn">
+                <i class="fas fa-play me-2"></i>Start Browser
+              </button>
+              <button class="btn btn-info" id="testDepsBtn">
+                <i class="fas fa-check me-2"></i>Test Setup
+              </button>
+              <button class="btn btn-warning" id="refreshDataBtn">
+                <i class="fas fa-sync me-2"></i>Refresh Data
+              </button>
+              <button class="btn btn-danger" id="closeSessionBtn">
+                <i class="fas fa-stop me-2"></i>Stop Browser
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Session Status -->
+      <div class="browser-status">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h5 class="mb-1">
+              <span class="status-indicator status-inactive" id="statusIndicator"></span>
+              <span id="statusText">No active session</span>
+            </h5>
+            <small class="text-muted" id="currentUrl">Ready to start browser automation</small>
+          </div>
+          <div class="col-md-4 text-end">
+            <small class="text-muted">Session ID: <span id="sessionId">None</span></small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div id="alertContainer"></div>
+
+      <!-- Captured Data -->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="captured-data-card">
+            <h4><i class="fas fa-database me-2"></i>Live Captured Data</h4>
+            <p class="text-muted">Authentication data captured from the current session</p>
+            
+            <div id="capturedDataContainer">
+              <div class="text-center text-muted py-4">
+                <i class="fas fa-info-circle fa-2x mb-3"></i>
+                <p>No data captured yet. Start a browser session and navigate to login pages to capture authentication data.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <!-- Quick Stats -->
+          <div class="captured-data-card">
+            <h5><i class="fas fa-chart-pie me-2"></i>Session Stats</h5>
+            <div class="row text-center">
+              <div class="col-6">
+                <div class="border-end">
+                  <h3 class="text-warning mb-0" id="tokensCount">0</h3>
+                  <small class="text-muted">Tokens</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <h3 class="text-info mb-0" id="cookiesCount">0</h3>
+                <small class="text-muted">Cookies</small>
+              </div>
+            </div>
+            <hr>
+            <div class="row text-center">
+              <div class="col-6">
+                <div class="border-end">
+                  <h3 class="text-success mb-0" id="sitesCount">0</h3>
+                  <small class="text-muted">Sites</small>
+                </div>
+              </div>
+              <div class="col-6">
+                <h3 class="text-purple mb-0" id="apiCount">0</h3>
+                <small class="text-muted">API Calls</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="captured-data-card">
+            <h5><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            <div class="d-grid gap-2">
+              <button class="btn btn-outline-primary btn-sm" onclick="navigateToSite('https://accounts.google.com')">
+                <i class="fab fa-google me-2"></i>Google Login
+              </button>
+              <button class="btn btn-outline-info btn-sm" onclick="navigateToSite('https://www.facebook.com/login')">
+                <i class="fab fa-facebook me-2"></i>Facebook Login
+              </button>
+              <button class="btn btn-outline-secondary btn-sm" onclick="navigateToSite('https://github.com/login')">
+                <i class="fab fa-github me-2"></i>GitHub Login
+              </button>
+              <button class="btn btn-outline-warning btn-sm" onclick="navigateToSite('https://business.phonepe.com/login')">
+                <i class="fas fa-mobile-alt me-2"></i>PhonePe Business
+              </button>
+            </div>
+          </div>
+
+          <!-- All Captured Data -->
+          <div class="captured-data-card">
+            <h5><i class="fas fa-history me-2"></i>All Sessions</h5>
+            <button class="btn btn-outline-primary btn-sm w-100" onclick="viewAllData()">
+              <i class="fas fa-list me-2"></i>View All Captured Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let sessionId = null;
+      let isSessionActive = false;
+      let refreshInterval = null;
+
+      // DOM elements
+      const createSessionBtn = document.getElementById('createSessionBtn');
+      const closeSessionBtn = document.getElementById('closeSessionBtn');
+      const navigateBtn = document.getElementById('navigateBtn');
+      const refreshDataBtn = document.getElementById('refreshDataBtn');
+      const urlInput = document.getElementById('urlInput');
+      const statusIndicator = document.getElementById('statusIndicator');
+      const statusText = document.getElementById('statusText');
+      const currentUrl = document.getElementById('currentUrl');
+      const sessionIdEl = document.getElementById('sessionId');
+      const alertContainer = document.getElementById('alertContainer');
+      const capturedDataContainer = document.getElementById('capturedDataContainer');
+
+      // Event listeners
+      createSessionBtn.addEventListener('click', createSession);
+      closeSessionBtn.addEventListener('click', closeSession);
+      navigateBtn.addEventListener('click', navigateToUrl);
+      refreshDataBtn.addEventListener('click', refreshCapturedData);
+      document.getElementById('testDepsBtn').addEventListener('click', testDependencies);
+      urlInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          navigateToUrl();
+        }
+      });
+
+      // API functions
+      async function testDependencies() {
+        try {
+          showLoading('Testing browser setup...');
+          
+          const response = await fetch('/api/browser/test-dependencies');
+          const result = await response.json();
+          
+          if (result.success) {
+            const deps = result.dependencies;
+            let message = 'Setup Test Results:\\n\\n';
+            message += `✓ Selenium: ${deps.selenium_version}\\n`;
+            message += `✓ ChromeDriver: ${deps.chromedriver_status}\\n`;
+            
+            if (deps.chromedriver_path) {
+              message += `Path: ${deps.chromedriver_path}\\n`;
+            }
+            if (deps.chromedriver_error) {
+              message += `❌ ChromeDriver Error: ${deps.chromedriver_error}\\n`;
+            }
+            
+            showAlert('info', 'Dependencies test completed - check console for details');
+            console.log('Dependencies:', deps);
+            alert(message);
+          } else {
+            showAlert('danger', 'Dependencies test failed: ' + result.error);
+            console.error('Dependencies error:', result);
+          }
+          
+          updateUI(); // Reset status
+        } catch (error) {
+          showAlert('danger', 'Error testing dependencies: ' + error.message);
+          updateUI(); // Reset status
+        }
+      }
+
+      async function createSession() {
+        try {
+          showLoading('Creating browser session...');
+          
+          const response = await fetch('/api/browser/create-session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            sessionId = result.session_id;
+            isSessionActive = true;
+            updateUI();
+            showAlert('success', 'Browser session created successfully!');
+            startAutoRefresh();
+          } else {
+            updateUI(); // Reset status
+            let errorMsg = 'Failed to create session: ' + result.error;
+            
+            // Provide helpful suggestions based on error type
+            if (result.error.includes('ChromeDriver')) {
+              errorMsg += '\\n\\nTry: 1) Install Google Chrome, 2) Run "Test Setup" first, 3) Check internet connection';
+            } else if (result.error.includes('Chrome browser')) {
+              errorMsg += '\\n\\nPlease install Google Chrome browser on your system';
+            } else if (result.error.includes('permission')) {
+              errorMsg += '\\n\\nTry running the application as administrator';
+            }
+            
+            showAlert('danger', errorMsg);
+            console.error('Session creation error:', result);
+          }
+        } catch (error) {
+          updateUI(); // Reset status
+          showAlert('danger', 'Network error creating session: ' + error.message + '\\n\\nCheck if the server is running and try again.');
+          console.error('Network error:', error);
+        }
+      }
+
+      async function closeSession() {
+        try {
+          showLoading('Closing browser session...');
+          
+          const response = await fetch('/api/browser/close-session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const result = await response.json();
+          
+          sessionId = null;
+          isSessionActive = false;
+          updateUI();
+          stopAutoRefresh();
+          
+          if (result.success) {
+            showAlert('info', 'Browser session closed');
+          } else {
+            showAlert('warning', 'Session may have been already closed');
+          }
+        } catch (error) {
+          showAlert('danger', 'Error closing session: ' + error.message);
+        }
+      }
+
+      async function navigateToUrl() {
+        if (!isSessionActive) {
+          showAlert('warning', 'Please start a browser session first');
+          return;
+        }
+
+        const url = urlInput.value.trim();
+        if (!url) {
+          showAlert('warning', 'Please enter a URL');
+          return;
+        }
+
+        try {
+          showLoading('Navigating to ' + url + '...');
+          
+          const response = await fetch('/api/browser/navigate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url: url })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showAlert('success', 'Navigated to ' + result.current_url);
+            await refreshSessionInfo();
+          } else {
+            showAlert('danger', 'Navigation failed: ' + result.error);
+          }
+        } catch (error) {
+          showAlert('danger', 'Error navigating: ' + error.message);
+        }
+      }
+
+      async function refreshSessionInfo() {
+        if (!isSessionActive) return;
+
+        try {
+          const response = await fetch('/api/browser/session-info');
+          const result = await response.json();
+          
+          if (result.success) {
+            currentUrl.textContent = result.current_url || 'about:blank';
+            document.title = 'Browser Automation - ' + (result.title || 'Untitled');
+          }
+        } catch (error) {
+          console.error('Error refreshing session info:', error);
+        }
+      }
+
+      async function refreshCapturedData() {
+        try {
+          const response = await fetch('/api/browser/captured-data');
+          const result = await response.json();
+          
+          if (result.success) {
+            displayCapturedData(result.data);
+            updateStats(result.data);
+            showAlert('info', `Refreshed data - ${result.count} items found`);
+          }
+        } catch (error) {
+          showAlert('danger', 'Error refreshing data: ' + error.message);
+        }
+      }
+
+      function displayCapturedData(data) {
+        if (!data || data.length === 0) {
+          capturedDataContainer.innerHTML = `
+            <div class="text-center text-muted py-4">
+              <i class="fas fa-info-circle fa-2x mb-3"></i>
+              <p>No authentication data captured yet.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const html = data.map(item => {
+          const cookies = JSON.parse(item.cookies || '[]');
+          const tokens = JSON.parse(item.auth_tokens || '{}');
+          
+          return `
+            <div class="data-item">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h6 class="mb-0">
+                  <i class="fas fa-globe me-2 text-primary"></i>
+                  ${item.site_name || item.site_domain}
+                </h6>
+                <small class="text-muted">${new Date(item.captured_at).toLocaleString()}</small>
+              </div>
+              
+              <p class="mb-2 text-muted small">
+                <i class="fas fa-link me-1"></i>
+                ${item.site_domain}
+              </p>
+              
+              ${Object.keys(tokens).length > 0 ? `
+                <div class="mb-2">
+                  <strong class="small">Tokens:</strong><br>
+                  ${Object.keys(tokens).map(key => 
+                    `<span class="token-badge">${key}</span>`
+                  ).join('')}
+                </div>
+              ` : ''}
+              
+              ${cookies.length > 0 ? `
+                <div class="mb-2">
+                  <strong class="small">Cookies:</strong> ${cookies.length} items
+                </div>
+              ` : ''}
+              
+              <button class="btn btn-outline-primary btn-sm" onclick="viewItemDetails(${item.id})">
+                <i class="fas fa-eye me-1"></i>View Details
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        capturedDataContainer.innerHTML = html;
+      }
+
+      function updateStats(data) {
+        let totalTokens = 0;
+        let totalCookies = 0;
+        let uniqueSites = new Set();
+        let totalApis = 0;
+
+        data.forEach(item => {
+          const tokens = JSON.parse(item.auth_tokens || '{}');
+          const cookies = JSON.parse(item.cookies || '[]');
+          const apis = JSON.parse(item.api_endpoints || '[]');
+          
+          totalTokens += Object.keys(tokens).length;
+          totalCookies += cookies.length;
+          totalApis += apis.length;
+          uniqueSites.add(item.site_domain);
+        });
+
+        document.getElementById('tokensCount').textContent = totalTokens;
+        document.getElementById('cookiesCount').textContent = totalCookies;
+        document.getElementById('sitesCount').textContent = uniqueSites.size;
+        document.getElementById('apiCount').textContent = totalApis;
+      }
+
+      function updateUI() {
+        if (isSessionActive) {
+          statusIndicator.className = 'status-indicator status-active';
+          statusText.textContent = 'Browser session active';
+          sessionIdEl.textContent = sessionId ? sessionId.substring(0, 8) + '...' : 'None';
+          createSessionBtn.disabled = true;
+          closeSessionBtn.disabled = false;
+          navigateBtn.disabled = false;
+        } else {
+          statusIndicator.className = 'status-indicator status-inactive';
+          statusText.textContent = 'No active session';
+          sessionIdEl.textContent = 'None';
+          currentUrl.textContent = 'Ready to start browser automation';
+          createSessionBtn.disabled = false;
+          closeSessionBtn.disabled = true;
+          navigateBtn.disabled = true;
+        }
+      }
+
+      function showLoading(message) {
+        statusIndicator.className = 'status-indicator status-loading';
+        statusText.textContent = message;
+      }
+
+      function showAlert(type, message) {
+        const alertHTML = `
+          <div class="alert alert-${type} alert-dismissible fade show alert-custom" role="alert">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'danger' ? 'exclamation-triangle' : 'info-circle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        `;
+        alertContainer.innerHTML = alertHTML;
+        
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+          const alert = alertContainer.querySelector('.alert');
+          if (alert) {
+            alert.remove();
+          }
+        }, 5000);
+      }
+
+      function startAutoRefresh() {
+        refreshInterval = setInterval(() => {
+          refreshSessionInfo();
+          refreshCapturedData();
+        }, 5000); // Refresh every 5 seconds
+      }
+
+      function stopAutoRefresh() {
+        if (refreshInterval) {
+          clearInterval(refreshInterval);
+          refreshInterval = null;
+        }
+      }
+
+      function navigateToSite(url) {
+        urlInput.value = url;
+        navigateToUrl();
+      }
+
+      function viewItemDetails(itemId) {
+        // Implement detailed view modal or page
+        showAlert('info', 'Detailed view for item ' + itemId + ' - Feature coming soon!');
+      }
+
+      function viewAllData() {
+        window.open('/dashboard', '_blank');
+      }
+
+      // Initialize
+      updateUI();
+      refreshCapturedData();
+    </script>
+  </body>
+</html>

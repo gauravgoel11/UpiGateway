@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>PhonePe Business Integration</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      .hero-section {
+        background: linear-gradient(135deg, #5f259f 0%, #7c3aed 100%);
+        color: white;
+        padding: 80px 0;
+        text-align: center;
+      }
+      
+      .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        text-align: center;
+        margin-bottom: 30px;
+        transition: transform 0.3s ease;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-10px);
+      }
+      
+      .feature-icon {
+        font-size: 3rem;
+        color: #5f259f;
+        margin-bottom: 20px;
+      }
+      
+      .option-btn {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        min-width: 200px;
+        margin: 10px;
+      }
+      
+      .wrapper-btn {
+        background: linear-gradient(135deg, #5f259f 0%, #7c3aed 100%);
+        border: none;
+        color: white;
+      }
+      
+      .browser-btn {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        border: none;
+        color: white;
+      }
+      
+      .official-btn {
+        background: transparent;
+        border: 2px solid #5f259f;
+        color: #5f259f;
+      }
+      
+      .official-btn:hover {
+        background: #5f259f;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="container">
+        <h1 class="display-4 fw-bold mb-4">
+          <i class="fas fa-mobile-alt me-3"></i>
+          PhonePe Business Integration
+        </h1>
+        <p class="lead mb-5">
+          Access PhonePe merchant data through our wrapper or use the official platform directly
+        </p>
+        
+        <div class="d-flex justify-content-center flex-wrap">
+          <a href="/wrapper" class="btn wrapper-btn option-btn">
+            <i class="fas fa-cog me-2"></i>
+            Use API Wrapper
+          </a>
+          <a href="/browser" class="btn browser-btn option-btn">
+            <i class="fas fa-globe me-2"></i>
+            Browser Automation
+          </a>
+          <a href="/phonepe-redirect" class="btn official-btn option-btn">
+            <i class="fas fa-external-link-alt me-2"></i>
+            Official PhonePe Login
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <i class="fas fa-layer-group feature-icon"></i>
+            <h3>API Wrapper</h3>
+            <p class="text-muted">
+              Use our custom wrapper to integrate with PhonePe Business APIs. 
+              Get OTPs, authenticate, and access merchant data programmatically.
+            </p>
+            <ul class="list-unstyled text-start">
+              <li><i class="fas fa-check text-success me-2"></i> Custom dashboard interface</li>
+              <li><i class="fas fa-check text-success me-2"></i> API endpoint integration</li>
+              <li><i class="fas fa-check text-success me-2"></i> Session management</li>
+              <li><i class="fas fa-check text-success me-2"></i> Transaction data access</li>
+            </ul>
+            <a href="/wrapper" class="btn btn-outline-primary">
+              <i class="fas fa-play me-2"></i>
+              Try Wrapper
+            </a>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-card">
+            <i class="fas fa-globe feature-icon text-warning"></i>
+            <h3>Browser Automation</h3>
+            <p class="text-muted">
+              Embedded Chrome browser with authentication data capture. 
+              Login to any site and automatically capture tokens, cookies, and API endpoints.
+            </p>
+            <ul class="list-unstyled text-start">
+              <li><i class="fas fa-check text-success me-2"></i> Embedded Chrome browser</li>
+              <li><i class="fas fa-check text-success me-2"></i> Auth token capture</li>
+              <li><i class="fas fa-check text-success me-2"></i> Cookie extraction</li>
+              <li><i class="fas fa-check text-success me-2"></i> API endpoint monitoring</li>
+            </ul>
+            <a href="/browser" class="btn btn-outline-warning">
+              <i class="fas fa-globe me-2"></i>
+              Launch Browser
+            </a>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-card">
+            <i class="fas fa-shield-alt feature-icon"></i>
+            <h3>Official PhonePe</h3>
+            <p class="text-muted">
+              Access the official PhonePe Business platform directly. 
+              Full features and official support from PhonePe.
+            </p>
+            <ul class="list-unstyled text-start">
+              <li><i class="fas fa-check text-success me-2"></i> Official PhonePe interface</li>
+              <li><i class="fas fa-check text-success me-2"></i> All business features</li>
+              <li><i class="fas fa-check text-success me-2"></i> Direct API access</li>
+              <li><i class="fas fa-check text-success me-2"></i> Official support</li>
+            </ul>
+            <a href="https://business.phonepe.com/login" target="_blank" class="btn btn-outline-primary">
+              <i class="fas fa-external-link-alt me-2"></i>
+              Open PhonePe
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Details -->
+    <div class="bg-light py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="text-center mb-4">Technical Integration</h2>
+            <div class="row">
+              <div class="col-md-4 text-center mb-4">
+                <i class="fas fa-code fa-2x text-primary mb-3"></i>
+                <h5>API Endpoints</h5>
+                <p class="text-muted small">
+                  Integration with PhonePe's web APIs including login, OTP verification, 
+                  merchant selection, and data retrieval.
+                </p>
+              </div>
+              <div class="col-md-4 text-center mb-4">
+                <i class="fas fa-key fa-2x text-primary mb-3"></i>
+                <h5>Authentication</h5>
+                <p class="text-muted small">
+                  Handles JWT tokens, CSRF protection, session management, 
+                  and secure cookie handling.
+                </p>
+              </div>
+              <div class="col-md-4 text-center mb-4">
+                <i class="fas fa-database fa-2x text-primary mb-3"></i>
+                <h5>Data Management</h5>
+                <p class="text-muted small">
+                  Caches transaction data, manages session persistence, 
+                  and provides real-time updates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Endpoints Reference -->
+    <div class="container my-5">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-terminal me-2"></i>
+            PhonePe API Endpoints (Discovered)
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6>Authentication</h6>
+              <code class="d-block mb-2">POST /apis/mi-web/v4/auth/web/login</code>
+              <code class="d-block mb-2">GET /apis/mi-web/v1/user/groupSelection</code>
+              <code class="d-block mb-4">POST /apis/mi-web/v1/user/updateSession</code>
+            </div>
+            <div class="col-md-6">
+              <h6>Business Data</h6>
+              <code class="d-block mb-2">GET /apis/mi-web/v1/transactions</code>
+              <code class="d-block mb-2">GET /apis/mi-web/v1/dashboard</code>
+              <code class="d-block mb-4">GET /apis/mi-web/v1/analytics</code>
+            </div>
+          </div>
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Note:</strong> Some endpoints may require additional discovery through the PhonePe Business dashboard.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html> 
